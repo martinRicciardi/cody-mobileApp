@@ -1,4 +1,5 @@
 import React from "react";
+import { Text } from 'react-native';
 import eventsActions from "../redux/actions/eventsActions";
 import { useEffect, useState  } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
@@ -19,11 +20,11 @@ function Events() {
 
     function reloadChanger() {
         setReload(!reload);
-      }
+    }
     
 
     const allEvents = useSelector(store => store.eventsReducer.events)
-    console.log(allEvents)
+    // console.log(allEvents)
 
     return (
         <Text>Nuestros eventos</Text>

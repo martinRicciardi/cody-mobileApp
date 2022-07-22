@@ -7,7 +7,7 @@ const commentsActions = {
     return async (dispatch, getState) => {
       if (comment.comment !== "") {
         const res = await axios.post(
-          "http://localhost:4000/api/events/comment",
+          "https://cody-coffe-api.herokuapp.com/api/events/comment",
           { comment },
           {
             headers: {
@@ -43,7 +43,7 @@ const commentsActions = {
     const token = localStorage.getItem("token");
     return async (dispatch, getState) => {
       const res = await axios.put(
-        `http://localhost:4000/api/events/comment/${id}`,
+        `https://cody-coffe-api.herokuapp.com/api/events/comment/${id}`,
         { data },
         {
           headers: {
@@ -67,7 +67,7 @@ const commentsActions = {
     const token = localStorage.getItem("token");
     return async (dispatch, getState) => {
       const res = await axios.post(
-        `http://localhost:4000/api/events/comment/${id}`,
+        `https://cody-coffe-api.herokuapp.com/api/events/comment/${id}`,
         {},
         {
           headers: {

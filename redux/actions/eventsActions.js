@@ -5,7 +5,7 @@ const eventsActions = {
     getEvents: () => {
         return async (dispatch, getState) => {
             try {
-                const res = await axios.get ('http://localhost:4000/api/events')
+                const res = await axios.get ('https://cody-coffe-api.herokuapp.com/api/events')
                 dispatch ({type:'GET_EVENTS', payload:res.data.response.events})
             } catch(error) {
                 console.log(error)
@@ -18,7 +18,7 @@ const eventsActions = {
 
     getEventById: (id) => {
         return async(dispatch, getState) => {
-            const res = await axios.get(`http://localhost:4000/api/events/${id}`)
+            const res = await axios.get(`https://cody-coffe-api.herokuapp.com/api/events/${id}`)
             dispatch({type: "GET_EVENT_BY_ID", payload: res.data.response.event})
             return res
             
@@ -28,7 +28,7 @@ const eventsActions = {
     modifyEvent: (_id,data) => {
         return async(dispatch, getState) => {
             try {
-                await axios.put(`http://localhost:4000/api/events/${_id}`,data)
+                await axios.put(`https://cody-coffe-api.herokuapp.com/api/events/${_id}`,data)
             } catch(error) {
                 console.log(error)
             }
@@ -38,7 +38,7 @@ const eventsActions = {
     addEvent: (name,description,authors,categories,images,price,limit,date,tags,attendance,likes,comments) => {
         return async(dispatch,getState) => {
             try {
-                await axios.post('http://localhost:4000/api/events',{name,description,authors,categories,images,price,limit,date,tags,attendance,likes,comments})    
+                await axios.post('https://cody-coffe-api.herokuapp.com/api/events',{name,description,authors,categories,images,price,limit,date,tags,attendance,likes,comments})    
             } catch(error) {
                 console.log(error)
             }            
@@ -48,7 +48,7 @@ const eventsActions = {
     deleteEvent: (_id) => {
         return async(dispatch, getState) => {
             try {
-                await axios.delete(`http://localhost:4000/api/events/${_id}`)
+                await axios.delete(`https://cody-coffe-api.herokuapp.com/api/events/${_id}`)
             } catch(error) {
                 console.log(error)
             }
@@ -71,7 +71,7 @@ likeDislike: (id) => {
     const token = localStorage.getItem('token')
     return async () => {
         try {
-            let response = await axios.put(`http://localhost:4000/api/events/like/${id}`, {},
+            let response = await axios.put(`https://cody-coffe-api.herokuapp.com/api/events/like/${id}`, {},
             {headers: {
                 Authorization: "Bearer "+token
                 }
