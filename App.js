@@ -4,6 +4,10 @@ import mainReducers from "./redux/reducers/mainReducer"
 import { Provider } from 'react-redux';
 import { configureStore as createStore } from "@reduxjs/toolkit"
 import Events from './screens/Events' 
+import SignUp from './screens/SignUp';
+import Store from './screens/Store';
+import Products from './components/Products';
+import Sidebar from './components/Sidebar';
 
 export default function App() {
   const reduxStore = createStore({ reducer: mainReducers })
@@ -11,7 +15,11 @@ export default function App() {
     <Provider store={reduxStore}>
       <View style={styles.container}>
         <Text>hooola hola hola</Text>
-        <Events/>
+        {/* <Events/> */}
+        {/* <Store/> */}
+        {/* <SignUp/> */}
+        <Products/>
+        <Sidebar/>
         <StatusBar style="auto" />
       </View>
     </Provider>
