@@ -10,7 +10,7 @@ import codySnack from '../assets/cody-snack.jpg'
 import productActions from "../redux/actions/productActions";
 
 const Store = () => {
-
+    const navigation = useNavigation();
     const { height, width } = useWindowDimensions();
     const storeStyles = StyleSheet.create({
         storeBanner: {
@@ -40,14 +40,6 @@ const Store = () => {
         }
     });
 
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(productActions.getProducts())
-    }, [])
-
-    const products = useSelector(store => store.productReducer.products)
-    // console.log(products)
-
     return (
         <View style={{ height: height }}>
             <ImageBackground style={storeStyles.storeBanner} source={storeBanner} resizeMethod='auto' resizeMode="cover" >
@@ -60,7 +52,7 @@ const Store = () => {
                 alignItems: 'center'
             }}>
 
-                <TouchableOpacity underlayColor="#000" activeOpacity={0.6} >
+                <TouchableOpacity underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("Menu")}>
                     <ImageBackground source={codyBreakFast} style={storeStyles.menu}>
                         <View style={storeStyles.menuText}>
                             <Text style={{ textAlign: 'center', fontSize: 40 }} >Desayuno</Text>
