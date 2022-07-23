@@ -1,36 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import mainReducers from "./redux/reducers/mainReducer"
+import { StatusBar, LogBox, StyleSheet, Text, View } from 'react-native';
+import mainReducer from "./redux/reducers/mainReducer"
 import { Provider } from 'react-redux';
 import { configureStore as createStore } from "@reduxjs/toolkit"
-import Events from './screens/Events' 
-import SignUp from './screens/SignUp';
-import Store from './screens/Store';
-import Products from './components/Products';
-import Sidebar from './components/Sidebar';
+import { NavigationContainer } from '@react-navigation/native';
+
+import Tabs from './navigation/Tabs';
 
 export default function App() {
-  const reduxStore = createStore({ reducer: mainReducers })
+
+  const store = createStore({ reducer: mainReducer });
+  LogBox.ignoreAllLogs();
   return (
-    <Provider store={reduxStore}>
-      <View style={styles.container}>
-        <Text>hooola hola hola</Text>
-        {/* <Events/> */}
-        {/* <Store/> */}
-        {/* <SignUp/> */}
-        <Products/>
-        <Sidebar/>
-        <StatusBar style="auto" />
-      </View>
+    <Provider store={store}>
+      <NavigationContainer>
+        <StatusBar />
+        <Tabs />
+      </NavigationContainer>
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
