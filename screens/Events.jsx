@@ -1,10 +1,11 @@
 import React from "react";
-import { Text, View } from 'react-native';
+import Gallery from '../components/Gallery'
+import '../styles/Events.css'
 import eventsActions from "../redux/actions/eventsActions";
 import { useEffect, useState  } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import NoEvents from "../components/NoEvents";
-import Gallery from "../components/Gallery";
+
 
 function Events() {
 
@@ -22,23 +23,33 @@ function Events() {
 
     function reloadChanger() {
         setReload(!reload);
-    }
+      }
     
 
     const allEvents = useSelector(store => store.eventsReducer.events)
-    // console.log(allEvents)
+    console.log(allEvents)
 
     return (
-        <View>
-        <Text>Nuestros eventos</Text>
-        {allEvents?.length > 0 ? (
-            <View>
+        <>
+      <div className="container-events"> 
+      <div className="title-events">
+                <h2>
+                    Nuestros Eventos
+                </h2>
+            </div>
+
+            {allEvents?.length > 0 ? (
+                <div>
                 <Gallery allEvents={allEvents} setChangeReload={reloadChanger}/>
-            </View>
-        ) : (
-            <NoEvents/>
-        ) }
-        </View>
+                </div>
+            ) :( 
+                <NoEvents />
+            ) }
+            
+
+      </div>
+            
+        </>
     );
 }
 export default Events;

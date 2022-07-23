@@ -1,12 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import SignUp from './../screens/SignUp';
-import Login from './../screens/Login';
-import Profile from './../screens/Profile';
-
-const AuthNavigator = createNativeStackNavigator();
+// import SignUp from './../screens/SignUp';
+// import Login from './../screens/Login';
+// import Profile from './../screens/Profile';
 
 export default function AuthStack() {
+const AuthNavigator = createNativeStackNavigator();
     return (
         <AuthNavigator.Navigator
             initialRouteName='Login'
