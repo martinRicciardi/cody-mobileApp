@@ -40,7 +40,8 @@ const About = () => {
       flexDirection: 'row',
       justifyContent: 'space-around',
       alignItems: 'center',
-      padding: 10
+      padding: 10,
+      backgroundColor: '#fae1d0'
     },
     textContainer: {
       height: "100%",
