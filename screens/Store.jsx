@@ -1,11 +1,6 @@
-import React from 'react';
 import { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import productActions from "../redux/actions/productActions";
-import Sidebar from '../components/Sidebar'
-
-
-
 
 function Store() {
 const dispatch = useDispatch()
