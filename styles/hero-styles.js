@@ -1,9 +1,8 @@
 import { StyleSheet, useWindowDimensions } from 'react-native';
-import heroStyles from './hero-styles';
 
-function heroStyles() {
+const heroStyles = () => {
     const { height, width } = useWindowDimensions();
-    const heroStyles = StyleSheet.create({
+    const styles = StyleSheet.create({
         text: {
             primary: { color: "#00695c" },
             light: { color: "#f7f3f3" },
@@ -30,22 +29,22 @@ function heroStyles() {
             }
         },
         heroContainer: {
-            display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            height: height,
+            justifyContent: 'space-around',
+            height: height/4*3,
             flex: 1
         },
         textContainer: {
             textAlign: 'center',
             alignItems: 'center',
-            justifyContent: 'flex-end',
-            height: '100%',
+            justifyContent: 'space-evenly',
+            height: '50%',
             backgroundColor: '#00000030',
             paddingVertical: 85,
             backgroundColor: '#f9b3844f',
             marginRight: '5rem',
             width: '50%',
+            borderWidth:5
         },
         cta: {
             container: {
@@ -64,7 +63,7 @@ function heroStyles() {
         }
     });
 
-    return heroStyles
+    return styles
 }
 
 
