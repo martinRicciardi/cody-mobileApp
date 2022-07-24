@@ -25,7 +25,8 @@ export default function Stack() {
                     headerShown: false
                 }}
             />
-                        <StoreStackNavigator.Screen
+            
+            <StoreStackNavigator.Screen
                 name='Menu'
                 component={Menu}
                 options={{
