@@ -1,8 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Stack from './Stack';
+import StoreStack from './StoreStack';
+import ShoppingStack from './ShoppingStack';
 import AuthStack from './AuthStack';
 
+import { Entypo } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
@@ -10,18 +13,26 @@ const Tab = createBottomTabNavigator();
 export default function Tabs() {
     return (
         <Tab.Navigator
-            initialRouteName='Home'
+            initialRouteName='Store'
             screenOptions={{
                 tabBarActiveTintColor: 'white',
                 tabBarInactiveTintColor: 'black',
                 tabBarStyle: { height: 45, backgroundColor: '#00695c' }
             }}>
             <Tab.Screen
-                name='Home'
-                component={Stack}
+                name='Store'
+                component={StoreStack}
                 options={{
                     headerShown: false,
-                    tabBarIcon: ({ color, size }) => <FontAwesome name="home" size={24} color="white" />
+                    tabBarIcon: ({ color, size }) => <MaterialIcons name="store" size={24} color="black" />
+                }}
+            />
+            <Tab.Screen
+                name='Cart'
+                component={ShoppingStack}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: ({ color, size }) => <Entypo name="shopping-cart" size={24} color="black" />
                 }}
             />
             <Tab.Screen

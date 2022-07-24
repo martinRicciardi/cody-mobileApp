@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { configureStore as createStore } from "@reduxjs/toolkit"
 import { NavigationContainer } from '@react-navigation/native';
 
-import Tabs from './navigation/Tabs';
+import HomeStack from './navigation/HomeStack';
 
 export default function App() {
 
@@ -14,7 +14,7 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <StatusBar />
-        <Tabs />
+        <HomeStack />
       </NavigationContainer>
     </Provider>
   );
