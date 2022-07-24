@@ -1,5 +1,5 @@
 import axios from "axios";   //importamos axios porque vamos a fechear
-
+import { AsyncStorage } from 'react-native';
 
 const userActions = {
 
@@ -7,7 +7,7 @@ const userActions = {
         
         return async (dispatch, getState) => { //propiedades de despacho y estado
         try{
-            const res = await axios.post('https://cody-coffe-api.herokuapp.com/api/auth/signUp', {userData})
+            const res = await axios.post('https://cody-coffe-api.herokuapp.com/api/auth/signup', {userData})
             console.log(res)
             
             dispatch({
@@ -30,13 +30,13 @@ const userActions = {
         
         return async (dispatch, getState) => {
             
-            const res = await axios.post('https://cody-coffe-api.herokuapp.com/api/auth/signIn', {logedUser}) //aca tenia get y es .post
+            const res = await axios.post('https://cody-coffe-api.herokuapp.com/api/auth/signin', {logedUser}) //aca tenia get y es .post
             console.log(res)
             if(res.data.success) {
-                localStorage.setItem('token', res.data.response.token)
+                await AsyncStorage.setItem('@token', res.data.response.token)
                 dispatch({
                     type: 'USER',
-                        payload: res.data.response.userData,
+                        payload: res.data.response.user,
                         view: true,
                         message: res.data.message,
                         success: res.data.success})
@@ -61,7 +61,7 @@ const userActions = {
         
         return async (dispatch, getState) => {
             const res = axios.post('',{userOut})
-            localStorage.removeItem('token')
+            await AsyncStorage.removeItem('@token')
             dispatch({
                 type: 'USER',
                 payload: null,
@@ -72,7 +72,7 @@ const userActions = {
 VerificateToken: (token) => {
   
     return async (dispatch, getState) => {
-        await axios.get('', {
+        await axios.get('https://cody-coffe-api.herokuapp.com/api/auth/signInToken', {
             headers: {'Authorization': 'Bearer ' +token}
         })
             .then(user => {if(user.data.success){

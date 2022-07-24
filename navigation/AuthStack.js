@@ -1,18 +1,18 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-// import SignUp from './../screens/SignUp';
-// import Login from './../screens/Login';
-// import Profile from './../screens/Profile';
+import SignUp from '../components/SignUp'
+import SignIn from './../components/SignIn';
+import Profile from './../screens/Profile';
 
 export default function AuthStack() {
 const AuthNavigator = createNativeStackNavigator();
     return (
         <AuthNavigator.Navigator
-            initialRouteName='Login'
+            initialRouteName='Profile'
         >
             <AuthNavigator.Screen
-                name='Login'
-                component={Login}
+                name='SignIn'
+                component={SignIn}
                 options={{
                     headerShown: false
                 }}
@@ -27,6 +27,9 @@ const AuthNavigator = createNativeStackNavigator();
             <AuthNavigator.Screen
                 name='Profile'
                 component={Profile}
+                options={{
+                    headerShown: false
+                }}
             />
         </AuthNavigator.Navigator>
     )
