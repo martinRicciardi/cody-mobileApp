@@ -54,13 +54,13 @@ const Hero = () => {
         <Text variant='h1' style={{ marginVertical: 20, fontSize: 40 }} >CODY</Text>
         <Text variant='h3' style={{ fontSize: 20 }} >Coffe & Code</Text>
       </View>
-      <TouchableOpacity underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("Main")}>
-        <View style={{ height: "50%", flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', width: '100%', paddingVertical: 40, paddingHorizontal: 20 }}>
+      <View style={{ height: "50%", flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%', paddingVertical: 40, paddingHorizontal: 20 }}>
+        <TouchableOpacity underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("Main")}>
           <Text style={{ borderWidth: 2, backgroundColor: "#ccc", padding: 10 }} >
             Entra y comprá
           </Text>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     </ImageBackground >
   )
 }

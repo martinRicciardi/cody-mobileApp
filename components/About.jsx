@@ -36,7 +36,7 @@ const About = () => {
       }
     },
     aboutContainer: {
-      height: height / 3,
+      height: height / 4,
       flexDirection: 'row',
       justifyContent: 'space-around',
       alignItems: 'center',
