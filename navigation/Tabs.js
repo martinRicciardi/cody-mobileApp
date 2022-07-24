@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Stack from './Stack';
-// import AuthStack from './AuthStack';
+import AuthStack from './AuthStack';
 
 import { FontAwesome } from '@expo/vector-icons';
 
@@ -24,14 +24,14 @@ export default function Tabs() {
                     tabBarIcon: ({ color, size }) => <FontAwesome name="home" size={24} color="white" />
                 }}
             />
-            {/* <Tab.Screen
+            <Tab.Screen
                 name='Account'
                 component={AuthStack}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color, size }) => <FontAwesome name="user" size={24} color="white" />
                 }}
-            /> */}
+            />
         </Tab.Navigator>
     )
 }
