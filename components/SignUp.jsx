@@ -15,8 +15,8 @@ const SignUp = () => {
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('')
-    const [country, setCountry] = useState('');
-    const [photo, setPhoto] = useState('');
+    // const [country, setCountry] = useState('');
+    const [image, setImage] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
     const navigation = useNavigation();
@@ -185,13 +185,12 @@ const SignUp = () => {
         const userData = {
             firstName: firstName.trim(),
             lastName: lastName.trim(),
-            country: country,
-            userPhoto: userPhoto.trim(),
+            // country: country,
+            image: image.trim(),
             email: email.trim(),
             password: password,
             passwordRepeat: password2,
-            method: 'register-form',
-            verified: false
+            method: 'signUpForm',
         };
 
         dispatch(userActions.signUpUsers(userData));
@@ -240,7 +239,7 @@ const SignUp = () => {
                         label="Last Name"
                         isRequired
                         value={lastName}
-                        onChangeText={(lastname) => setLaststName(lastname)}
+                        onChangeText={(lastname) => setLastName(lastname)}
                         asterik
                         showErrorIcon
                         textContentType='familyName'
@@ -262,8 +261,8 @@ const SignUp = () => {
 
                     <FormItem
                         label="Photo URL"
-                        value={photo}
-                        onChangeText={(photo) => setPhoto(photo)}
+                        value={image}
+                        onChangeText={(photo) => setImage(photo)}
                         showErrorIcon
                         textContentType='URL'
                         keyboardType='url'

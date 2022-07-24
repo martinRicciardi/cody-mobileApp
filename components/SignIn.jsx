@@ -111,18 +111,18 @@ const SignIn = () => {
     });
 
     async function handleSubmit() {
-        const userCredentials = {
+        const logedUser = {
             email: email,
             password: password,
-            method: 'register-form'
+            from: 'signUpForm'
         }
-        dispatch(userActions.signInUser(userCredentials));
+        await dispatch(userActions.signInUser(logedUser));
     };
 
     if (message !== '') {
         setTimeout(function () {
             navigation.navigate("Home");
-        }, 1000);
+        }, 100000);
     }
     // if (!fontsLoaded) {
     //     return <AppLoading />;
