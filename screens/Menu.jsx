@@ -4,30 +4,31 @@ import { StyleSheet, View, ImageBackground, useWindowDimensions, ScrollView, Ima
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import menubg from '../assets/banner-hero3.jpg'
+import productbg from '../assets/card-cont.jpg'
 import productActions from "../redux/actions/productActions";
 
-const Menu = () => {
-
+const Menu = ({ route }) => {
     const { height, width } = useWindowDimensions();
     const menuStyles = StyleSheet.create({
         menuBanner: {
-            height: height / 4,
+            height: height / 6,
             justifyContent: 'space-around',
             alignItems: 'center',
-            padding: 30,
-            width: width
+            width: width,
+            borderBottomWidth:2
         },
         menuContainer: {
             width: width,
             height: height,
-            marginBottom: 40
+            paddingBottom: 45
         },
-        menu: {
-            height: 250,
+        product: {
+            height: 450,
             width: 250,
-            marginTop: 20
+            marginTop: 20,
+            alignItems: 'center'
         },
-        menuText: {
+        productText: {
             justifyContent: 'flex-start',
             alignItems: 'center',
             height: '100%',
@@ -39,11 +40,10 @@ const Menu = () => {
 
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(productActions.getProducts())
+        dispatch(productActions.getProductsbyCategory(route.params.category))
     }, [])
 
-    const products = useSelector(store => store.productReducer.products)
-    console.log(products)
+    const products = useSelector(store => store.productReducer.filter)
 
     return (
         <ImageBackground style={menuStyles.menuContainer} source={menubg} resizeMethod='auto' resizeMode="cover" >
@@ -51,13 +51,25 @@ const Menu = () => {
                 <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d3', padding: 5 }} >Elija sus productos</Text>
                 <View style={{ backgroundColor: '#000', padding: 5 }}><Text style={{ color: '#fff' }}>Acá iría el filtro de nombre</Text></View>
             </View>
-            <ScrollView  contentContainerStyle={{
+            <ScrollView contentContainerStyle={{
                 justifyContent: 'space-around',
                 alignItems: 'center'
             }}>
-                {products && products.map((item, i)=> {
-                    return(
-                    <Text>{item.name}</Text>
+                {products && products.map((item, i) => {
+                    return (
+                        <ImageBackground key={i} style={menuStyles.product} imageStyle={{ borderRadius: 20 }} source={productbg} resizeMethod='auto' resizeMode="cover" >
+                            <Image source={{ uri: item.image }} style={{
+                                width: '70%',
+                                height: '65%'
+                            }} resizeMethod='auto' resizeMode='contain' />
+                            <View style={{ height: '35%', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Text variant='h3' style={{ fontSize: 18, backgroundColor: '#fff', color: '#f9b384d3', paddingHorizontal: 15, paddingVertical: 7, borderRadius: 10, fontWeight: '800', marginVertical: 5 }} >{item.name}</Text>
+                                <Text variant='h3' style={{ fontSize: 15, backgroundColor: '#f9b384d3', paddingHorizontal: 15, paddingVertical: 5, borderRadius: 10, borderColor: '#fff', borderWidth: 1, marginVertical: 3 }} >${item.price}</Text>
+                                <TouchableOpacity underlayColor="#000" activeOpacity={0.6} >
+                                    <Text variant='h3' style={{ fontSize: 15, backgroundColor: '#318aac', paddingHorizontal: 20, paddingVertical: 8, borderRadius: 10, borderColor: '#fff', borderWidth: 1, marginVertical: 10, color:'#fff', fontWeight: '600' }} >Pedir</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </ImageBackground>
                     )
                 })}
 

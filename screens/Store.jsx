@@ -7,6 +7,7 @@ import storeBanner from '../assets/banner-store.jpg'
 import codyBreakFast from '../assets/cody-breakfast.jpg'
 import codyLunch from '../assets/cody-lunch.jpg'
 import codySnack from '../assets/cody-snack.jpg'
+import codyProduct from '../assets/cody-product.jpg'
 import productActions from "../redux/actions/productActions";
 
 const Store = () => {
@@ -14,7 +15,7 @@ const Store = () => {
     const { height, width } = useWindowDimensions();
     const storeStyles = StyleSheet.create({
         storeBanner: {
-            height: height / 4,
+            height: height / 5,
             justifyContent: 'space-around',
             alignItems: 'center',
             padding: 30,
@@ -40,41 +41,34 @@ const Store = () => {
         }
     });
 
+        const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(productActions.getProducts())
+    },[])
+
+    const categories = [{ name: 'Desayuno', image: codyBreakFast }, { name: 'Almuerzo', image: codyLunch }, { name: 'Postre', image: codySnack }, { name: 'Producto', image: codyProduct }]
     return (
         <View style={{ height: height }}>
             <ImageBackground style={storeStyles.storeBanner} source={storeBanner} resizeMethod='auto' resizeMode="cover" >
-                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d3', padding: 5 }} >¿Qué menú vas a pedir?</Text>
-                <View style={{ backgroundColor: '#000', padding: 5 }}><Text style={{ color: '#fff' }}>Acá iría el filtro de nombre</Text></View>
+                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10 }} >¿Qué menú vas a pedir?</Text>
             </ImageBackground>
 
             <ScrollView style={storeStyles.menuContainer} contentContainerStyle={{
                 justifyContent: 'space-around',
                 alignItems: 'center'
             }}>
-
-                <TouchableOpacity underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("Menu")}>
-                    <ImageBackground source={codyBreakFast} style={storeStyles.menu}>
-                        <View style={storeStyles.menuText}>
-                            <Text style={{ textAlign: 'center', fontSize: 40 }} >Desayuno</Text>
-                        </View>
-                    </ImageBackground>
-                </TouchableOpacity>
-                <TouchableOpacity underlayColor="#000" activeOpacity={0.6} >
-                    <ImageBackground source={codyLunch} style={storeStyles.menu}>
-                        <View style={storeStyles.menuText}>
-                            <Text style={{ textAlign: 'center', fontSize: 40 }} >Almuerzo</Text>
-                        </View>
-                    </ImageBackground>
-                </TouchableOpacity>
-                <TouchableOpacity underlayColor="#000" activeOpacity={0.6} >
-                    <ImageBackground source={codySnack} style={storeStyles.menu}>
-                        <View style={storeStyles.menuText}>
-                            <Text style={{ textAlign: 'center', fontSize: 40 }} >Merienda</Text>
-                        </View>
-                    </ImageBackground>
-                </TouchableOpacity>
-
-
+                {categories.map((item, i) => {
+                    return (
+                        <TouchableOpacity key={i} underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("Menu", { category: item.name })}>
+                            <ImageBackground source={item.image} style={storeStyles.menu}>
+                                <View style={storeStyles.menuText}>
+                                    <Text style={{ textAlign: 'center', fontSize: 40 }} >{item.name}</Text>
+                                </View>
+                            </ImageBackground>
+                        </TouchableOpacity>
+                    )
+                })}
             </ScrollView>
         </View >
 
