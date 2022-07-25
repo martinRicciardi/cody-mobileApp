@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { StyleSheet, View, ImageBackground, useWindowDimensions, ScrollView, Image, TouchableOpacity, Text } from "react-native";
+import { StyleSheet, Button, View, ImageBackground, useWindowDimensions, ScrollView, Image, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import menubg from '../assets/banner-hero3.jpg'
@@ -15,7 +15,7 @@ const Menu = ({ route }) => {
             justifyContent: 'space-around',
             alignItems: 'center',
             width: width,
-            borderBottomWidth:2
+            borderBottomWidth: 2
         },
         menuContainer: {
             width: width,
@@ -37,11 +37,17 @@ const Menu = ({ route }) => {
             backgroundColor: 'rgba(0,0,0,0.15)'
         }
     });
-
+    const [reload, setReload] = useState(false);
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(productActions.getProductsbyCategory(route.params.category))
     }, [])
+
+    const addToCart= async (e) => {
+        console.log(e)
+        // await dispatch(productActions.addToCart(id));
+        // setReload(!reload);
+    }
 
     const products = useSelector(store => store.productReducer.filter)
 
@@ -65,9 +71,10 @@ const Menu = ({ route }) => {
                             <View style={{ height: '35%', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <Text variant='h3' style={{ fontSize: 18, backgroundColor: '#fff', color: '#f9b384d3', paddingHorizontal: 15, paddingVertical: 7, borderRadius: 10, fontWeight: '800', marginVertical: 5 }} >{item.name}</Text>
                                 <Text variant='h3' style={{ fontSize: 15, backgroundColor: '#f9b384d3', paddingHorizontal: 15, paddingVertical: 5, borderRadius: 10, borderColor: '#fff', borderWidth: 1, marginVertical: 3 }} >${item.price}</Text>
-                                <TouchableOpacity underlayColor="#000" activeOpacity={0.6} >
-                                    <Text variant='h3' style={{ fontSize: 15, backgroundColor: '#318aac', paddingHorizontal: 20, paddingVertical: 8, borderRadius: 10, borderColor: '#fff', borderWidth: 1, marginVertical: 10, color:'#fff', fontWeight: '600' }} >Pedir</Text>
-                                </TouchableOpacity>
+                                <Text variant='h3' style={{ fontSize: 15, backgroundColor: '#f9b384d3', paddingHorizontal: 15, paddingVertical: 5, borderRadius: 10, borderColor: '#fff', borderWidth: 1, marginVertical: 3 }} >Stock: {item.stock}</Text>
+                                <Button title='Pedir'style={{ fontSize: 15, paddingHorizontal: 20, paddingVertical: 8, borderRadius: 10, borderColor: '#fff', borderWidth: 1, marginVertical: 10, color: '#fff', fontWeight: '600' }} color="#318aac"  onPress={async()=>{
+                                    await dispatch(productActions.addToCart(item._id));
+                                }} />
                             </View>
                         </ImageBackground>
                     )

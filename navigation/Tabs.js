@@ -20,7 +20,7 @@ export default function Tabs() {
                 tabBarStyle: { height: 45, backgroundColor: '#00695c' }
             }}>
             <Tab.Screen
-                name='Store'
+                name='Store Stack'
                 component={StoreStack}
                 options={{
                     headerShown: false,
@@ -28,7 +28,7 @@ export default function Tabs() {
                 }}
             />
             <Tab.Screen
-                name='Cart'
+                name='Shopping Stack'
                 component={ShoppingStack}
                 options={{
                     headerShown: false,
