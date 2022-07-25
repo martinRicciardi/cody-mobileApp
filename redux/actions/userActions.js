@@ -57,10 +57,8 @@ const userActions = {
         }
     },
 
-    signOutUser: (userOut) => {
-        
+    signOutUser: () => {
         return async (dispatch, getState) => {
-            const res = axios.post('',{userOut})
             await AsyncStorage.removeItem('@token')
             dispatch({
                 type: 'USER',
