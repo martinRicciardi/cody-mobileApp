@@ -72,9 +72,11 @@ const Menu = ({ route }) => {
                                 <Text variant='h3' style={{ fontSize: 18, backgroundColor: '#fff', color: '#f9b384d3', paddingHorizontal: 15, paddingVertical: 7, borderRadius: 10, fontWeight: '800', marginVertical: 5 }} >{item.name}</Text>
                                 <Text variant='h3' style={{ fontSize: 15, backgroundColor: '#f9b384d3', paddingHorizontal: 15, paddingVertical: 5, borderRadius: 10, borderColor: '#fff', borderWidth: 1, marginVertical: 3 }} >${item.price}</Text>
                                 <Text variant='h3' style={{ fontSize: 15, backgroundColor: '#f9b384d3', paddingHorizontal: 15, paddingVertical: 5, borderRadius: 10, borderColor: '#fff', borderWidth: 1, marginVertical: 3 }} >Stock: {item.stock}</Text>
-                                <Button title='Pedir'style={{ fontSize: 15, paddingHorizontal: 20, paddingVertical: 8, borderRadius: 10, borderColor: '#fff', borderWidth: 1, marginVertical: 10, color: '#fff', fontWeight: '600' }} color="#318aac"  onPress={async()=>{
+                                <TouchableOpacity key={i} underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("Menu", { category: item.name })}>
+                                <Text style={{ fontSize: 15, paddingHorizontal: 20, paddingVertical: 8, borderRadius: 10, backgroundColor:"#318aac", borderColor: '#fff', borderWidth: 1, marginVertical: 10, color: '#fff', fontWeight: '600' }} onPress={async()=>{
                                     await dispatch(productActions.addToCart(item._id));
-                                }} />
+                                }}>Pedir</Text>
+                                </TouchableOpacity>
                             </View>
                         </ImageBackground>
                     )
