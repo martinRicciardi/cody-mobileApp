@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, View, ImageBackground, useWindowDimensions, ScrollView, Image, TouchableOpacity, Text } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Table from 'react-native-responsive-table-view'
+import { DataTable } from 'react-native-paper';
 
 import { useDispatch, useSelector } from 'react-redux'
 import productActions from "../redux/actions/productActions";
@@ -22,54 +22,106 @@ export default function ShoppingCart() {
             padding: 30,
             width: width
         },
-        menuContainer: {
-            backgroundColor: '#fae1d0',
+        table: {
             width: width,
-            marginBottom: 40
+            height: height,
+            backgroundColor: '#fae1d0',
+            borderRadius: 10,
         },
-        menu: {
-            height: 250,
-            width: 250,
-            marginTop: 20
-        },
-        menuText: {
-            justifyContent: 'flex-start',
+        tableHead: {
+            height: 50,
+            width: width,
+            borderWidth: 3,
+            backgroundColor: '#f9b384d7',
+            flexDirection: 'row',
             alignItems: 'center',
+            justifyContent: 'space-between'
+        },
+        headItem: {
             height: '100%',
+            borderEndWidth: 2,
+            width: width / 6,
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 5
+        },
+        headItemEmpty: {
+            height: '100%',
+            width: width / 6,
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 5
+        },
+        tableRow: {
+            height: 100,
             width: '100%',
-            padding: 20,
-            backgroundColor: 'rgba(0,0,0,0.15)'
+            borderBottomWidth: 3,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+        },
+        rowItem: {
+            height: '100%',
+            width: width / 6,
+            borderEndWidth: 2,
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 5
+        },
+
+
+    });
+    const styles = StyleSheet.create({
+        container: {
+            backgroundColor: '#fae1d0',
+            width:width,
+            height: height
         }
     });
+
     const cart = useSelector(store => store.productReducer.cart);
 
     return (
-        <View style={{ height: height }}>
+
+        <View style={{ height: height }} >
             <ImageBackground style={cartStyles.storeBanner} source={storeBanner} resizeMethod='auto' resizeMode="cover" >
                 <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10 }} >Carrito de Compras</Text>
             </ImageBackground>
-
-
-            <ScrollView style={cartStyles.menuContainer} contentContainerStyle={{
+            <ScrollView contentContainerStyle={{
                 justifyContent: 'space-around',
                 alignItems: 'center'
             }}>
+                <View style={styles.container}>
+                    {cart.length > 0 ?
+                        <DataTable>
+                            <DataTable.Header>
+                                <DataTable.Title>Producto</DataTable.Title>
+                                <DataTable.Title>Cantidad</DataTable.Title>
+                                <DataTable.Title>Precio</DataTable.Title>
+                                <DataTable.Title>Opcion</DataTable.Title>
+                                <DataTable.Title>Opcion</DataTable.Title>
+                            </DataTable.Header>
 
-                <Table>
-                    <Table.Row>
-                        <Table.Cell><Text>text 1</Text></Table.Cell>
-                        <Table.Cell><Text>text 2</Text></Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell><Text>text 3</Text></Table.Cell>
-                        <Table.Cell><Text>text 4</Text></Table.Cell>
-                    </Table.Row>
-                    <Table.Row>
-                        <Table.Cell><Text>text 5</Text></Table.Cell>
-                        <Table.Cell><Text>text 6</Text></Table.Cell>
-                    </Table.Row>
-                </Table>
-            </ScrollView>
+                            {cart.map((item, i) => (
+                                <DataTable.Row key={i} style={{alignItems:'center'}}>
+                                    <DataTable.Cell textStyle={{fontSize: 12}} >{item.name}</DataTable.Cell>
+                                    <DataTable.Cell textStyle={{fontSize: 12}}  numeric>{item.quantity}</DataTable.Cell>
+                                    <DataTable.Cell textStyle={{fontSize: 12}} numeric >${item.quantity * item.price}</DataTable.Cell>
+                                    <DataTable.Cell textStyle={{fontSize: 10}} numeric onPress={async()=>{
+                                    await dispatch(productActions.delFromCart(item._id));
+                                }}
+                                style={{backgroundColor:'#ccc'}}>Eliminar uno</DataTable.Cell>
+                                    <DataTable.Cell textStyle={{fontSize: 10}} numeric onPress={async()=>{
+                                    await dispatch(productActions.delFromCart(item._id, all=true));
+                                }} style={{backgroundColor:'#ccc'}}>Eliminar todos</DataTable.Cell>
+                                </DataTable.Row>
+                            )) }  
+                        </DataTable>
+                        :
+                        null
+                    }
+                </View>
+            </ScrollView >
         </View >
     );
 }

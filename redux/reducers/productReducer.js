@@ -52,7 +52,7 @@ const productReducer = (state = initialState, action) => {
             let itemInCart = state.cart.find((item) => item._id === newItem._id);
 
             return itemInCart
-                ? 
+                ?
                 // Si ya está agregado, lo busca y le suma 1 a cuantity
                 {
                     ...state,
@@ -67,6 +67,34 @@ const productReducer = (state = initialState, action) => {
                     ...state,
                     cart: [...state.cart, { ...newItem, quantity: 1 }],
                 };
+
+        case "DELETE_ONE_FROM_CART":
+            let itemToDelete = state.cart.find((item) => item._id === action.payload);
+
+            return itemToDelete.quantity > 1
+                ? {
+                    ...state,
+                    cart: state.cart.map((item) =>
+                        item._id === action.payload
+                            ? { ...item, quantity: item.quantity - 1 }
+                            : item
+                    ),
+                }
+                : {
+                    ...state,
+                    cart: state.cart.filter((item) => item._id !== action.payload),
+                };
+
+        case "DELETE_ALL_FROM_CART":
+            return {
+                ...state,
+                cart: state.cart.filter((item) => item._id !== action.payload),
+            };
+        case "CLEAR_CART":
+            return {
+                ...state,
+                cart: []
+            };
 
         default:
             return state

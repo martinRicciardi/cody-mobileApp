@@ -43,12 +43,6 @@ const Menu = ({ route }) => {
         dispatch(productActions.getProductsbyCategory(route.params.category))
     }, [])
 
-    const addToCart= async (e) => {
-        console.log(e)
-        // await dispatch(productActions.addToCart(id));
-        // setReload(!reload);
-    }
-
     const products = useSelector(store => store.productReducer.filter)
 
     return (
