@@ -15,32 +15,37 @@ export default function Tabs() {
         <Tab.Navigator
             initialRouteName='Store Stack'
             screenOptions={{
-                tabBarActiveTintColor: 'white',
-                tabBarInactiveTintColor: 'black',
-                tabBarStyle: { height: 45, backgroundColor: '#00695c' }
+                tabBarStyle: { height: 45, backgroundColor: '#fae1d0' },
+                // tabBarShowLabel: false
             }}>
             <Tab.Screen
-                name='Store Stack'
+                name='Tienda'
                 component={StoreStack}
                 options={{
                     headerShown: false,
-                    tabBarIcon: ({ color, size }) => <MaterialIcons name="store" size={24} color="black" />
+                    tabBarActiveTintColor:'black',
+                    tabBarInactiveTintColor: '#4a0000',
+                    tabBarIcon: ({ color, size }) => <MaterialIcons name="store" size={24} color={"#4a0000"} />
                 }}
             />
             <Tab.Screen
-                name='Shopping Stack'
+                name='Pedido'
                 component={ShoppingStack}
                 options={{
                     headerShown: false,
-                    tabBarIcon: ({ color, size }) => <Entypo name="shopping-cart" size={24} color="black" />
+                    tabBarActiveTintColor:'black',
+                    tabBarInactiveTintColor: '#4a0000',
+                    tabBarIcon: ({ color, size }) => <Entypo name="shopping-cart" size={24} color="#4a0000" />
                 }}
             />
             <Tab.Screen
-                name='Account'
+                name='Cuenta'
                 component={AuthStack}
                 options={{
                     headerShown: false,
-                    tabBarIcon: ({ color, size }) => <FontAwesome name="user" size={24} color="white" />
+                    tabBarActiveTintColor:'black',
+                    tabBarInactiveTintColor: '#4a0000',
+                    tabBarIcon: ({ color, size }) => <FontAwesome name="user" size={24} color="#4a0000" />
                 }}
             />
         </Tab.Navigator>

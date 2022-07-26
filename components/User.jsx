@@ -21,7 +21,7 @@ const User = () =>{
     const { height, width } = useWindowDimensions();
     const userStyles = StyleSheet.create({
         storeBanner: {
-            height: height / 5,
+            height: height/5,
             justifyContent: 'space-around',
             alignItems: 'center',
             padding: 30,
@@ -35,7 +35,7 @@ const User = () =>{
         },
         container: {
             width: "100%",
-            height: 631,
+            height: height*4/5,
             padding: 30,
             display: "flex",
             flexDirection: "column",
@@ -57,7 +57,9 @@ const User = () =>{
             </ImageBackground>
                 <View style={userStyles.container}>
                     <View style={userStyles.user}>
+                        {user.image &&
                         <Image style={userStyles.photo} resizeMethod='auto' resizeMode='contain' source={{uri: user.image}}/>
+                        }
                         <Text style={{ fontSize: 40, marginTop: 20 }}>
                             {userFName + " " + userLName}
                         </Text>
