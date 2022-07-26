@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 export default function Tabs() {
     return (
         <Tab.Navigator
-            initialRouteName='Store'
+            initialRouteName='Store Stack'
             screenOptions={{
                 tabBarActiveTintColor: 'white',
                 tabBarInactiveTintColor: 'black',
