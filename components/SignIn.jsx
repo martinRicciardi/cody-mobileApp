@@ -86,14 +86,16 @@ const SignIn = () => {
         await dispatch(userActions.signInUser(logedUser));
     };
 
-    // if (message !== '') {
-    //     setTimeout(function () {
-    //         navigation.navigate("Home");
-    //     }, 100000);
-    // }
+    if (message) {
+        setTimeout(function () {
+            navigation.navigate("Tienda");
+        }, 1000);
+    }
     // if (!fontsLoaded) {
     //     return <AppLoading />;
     // }
+
+    console.log(message)
     return (
         <View style={{ height: height, justifyContent: 'flex-start' }} >
             <ImageBackground style={styles.authBanner} source={Banner} resizeMethod='auto' resizeMode="cover" >

@@ -47,6 +47,12 @@ const productActions = {
         return async (dispatch, getState) => {
             dispatch({ type: "CLEAR_CART", payload: null })
         }
+    },
+    buyProduct: (id, quantity) =>{
+        return async (dispatch, getState) => {
+            const res = await axios.get('https://cody-coffe-api.herokuapp.com/api/products/buy')
+            dispatch({ type: "BUY", payload: res});
+        }
     }
 }
 
