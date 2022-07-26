@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import userActions from '../redux/actions/userActions';
-import heroBg from '../assets/banner-hero3.jpg'
+import Banner from '../assets/banner-store.jpg'
 // import dataActions from '../redux/actions/dataActions';
 // import bgCity from './../assets/city-body.jpg'
 // import AppLoading from 'expo-app-loading';
@@ -21,7 +21,6 @@ const SignUp = () => {
     const [password2, setPassword2] = useState('');
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const { height, width } = useWindowDimensions()
     // let [fontsLoaded] = useFonts({
     //     Charm_400Regular,
     //     Comfortaa_500Medium
@@ -36,7 +35,7 @@ const SignUp = () => {
         //     normal: { fontSize: 15, fontFamily: 'Comfortaa_500Medium' }
         // },
         text: {
-            primary: { color: "#00695c" },
+            primary: { color: "#f9b384d7" },
             light: { color: "#f7f3f3" },
             center: { textAlign: 'center' },
             shadowLight: {
@@ -63,7 +62,9 @@ const SignUp = () => {
         authContainer: {
             flexGrow: 1,
             justifyContent: 'center',
-            padding: 30
+            padding: 60,
+            paddingTop: 80,
+            backgroundColor: "#fae1d0"
         },
         formContainer: {
             borderWidth: 1,
@@ -120,50 +121,34 @@ const SignUp = () => {
         },
     });
 
-    const heroStyles = StyleSheet.create({
-        text: {
-        primary: { color: "#00695c" },
-        light: { color: "#f7f3f3" },
-        center: { textAlign: 'center' },
-        shadowLight: {
-            textShadowColor: '#fff',
-            textShadowOffset: { width: 2, height: 2 },
-            textShadowRadius: 1
-        },
-        shadowPrimary: {
-            textShadowColor: '#00695c',
-            textShadowOffset: { width: 3, height: 1 },
-            textShadowRadius: 1
-        },
-        shadowBlurLight: {
-            textShadowColor: '#fff',
-            textShadowOffset: { width: 3, height: 0 },
-            textShadowRadius: 3
-        },
-        shadowBlurPrimary: {
-            textShadowColor: '#00695c',
-            textShadowOffset: { width: 3, height: 0 },
-            textShadowRadius: 3
-        }
-        },
-        heroContainer: {
-            height: height / 4 * 3,
+    const { height, width } = useWindowDimensions();
+    const userStyles = StyleSheet.create({
+        storeBanner: {
+            height: height / 5,
             justifyContent: 'space-around',
-            alignItems: 'center'
-        },
-        textContainer: {
-            height: "50%",
-            justifyContent: 'flex-start',
             alignItems: 'center',
-            padding: 60
+            padding: 30,
+            width: width
         },
-        navigateButtons: {
-            height: "25%",
+        photo: {
+            width: 100,
+            height: 100,
+            backgroundColor: "#f9b384d7",
+            borderRadius: 100
+        },
+        container: {
             width: "100%",
+            height: 635,
+            padding: 30,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+        },
+        user: {
             display: "flex",
             flexDirection: "row",
-            justifyContent: "center",
-            // alignItems: "center"
+            justifyContent: "space-between",
+            alignItems: "center"
         }
     });
 
@@ -197,35 +182,32 @@ const SignUp = () => {
 
     };
 
-    if (message !== '') {
-        setTimeout(function () {
-            navigation.navigate("Profile");
-        }, 100000);
-    }
+    // if (message !== '') {
+    //     setTimeout(function () {
+    //         navigation.navigate("Profile");
+    //     }, 100000);
+    // }
     // if (!fontsLoaded) {
     //     return <AppLoading />;
     // }
     return (
         <ScrollView>
 
-                <ImageBackground style={heroStyles.heroContainer} source={heroBg} resizeMethod='auto' resizeMode="cover" >
-                    <View style={heroStyles.textContainer} >
-                        <Text variant='h1' style={{ marginVertical: 20, fontSize: 40 }} >CODY</Text>
-                        <Text variant='h3' style={{ fontSize: 20 }} >Coffe & Code</Text>
-                    </View>
-                </ImageBackground >
+                <ImageBackground style={userStyles.storeBanner} source={Banner} resizeMethod='auto' resizeMode="cover" >
+                        <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10 }} >Mi Perfil</Text>
+                </ImageBackground>
 
             <ImageBackground style={styles.authContainer} resizeMethod='auto' resizeMode="cover" >
                 <Form
                     onButtonPress={() => handleSubmit()}
-                    buttonText='SIGN UP'
-                    buttonStyle={{ backgroundColor: '#00695c' }}
+                    buttonText='Registrarse'
+                    buttonStyle={{ backgroundColor: '#f9b384d7' }}
                     style={styles.formContainer}
                 >
-                    <Text style={[styles.text.primary, { textAlign: 'center', marginBottom: 10 }]}>Sign Up</Text>
+                    <Text style={[styles.text.primary, { textAlign: 'center', marginBottom: 10, fontSize: 30 }]}>Registrate</Text>
 
                     <FormItem
-                        label="First Name"
+                        label="Nombre"
                         isRequired
                         value={firstName}
                         onChangeText={(name) => setFirstName(name)}
@@ -236,7 +218,7 @@ const SignUp = () => {
                         textInputStyle={{ color: '#00695c' }}
                     />
                     <FormItem
-                        label="Last Name"
+                        label="Apellido"
                         isRequired
                         value={lastName}
                         onChangeText={(lastname) => setLastName(lastname)}
@@ -260,7 +242,7 @@ const SignUp = () => {
                     } */}
 
                     <FormItem
-                        label="Photo URL"
+                        label="Foto URL"
                         value={image}
                         onChangeText={(photo) => setImage(photo)}
                         showErrorIcon
@@ -280,7 +262,7 @@ const SignUp = () => {
                         textInputStyle={{ color: '#00695c' }}
                     />
                     <FormItem
-                        label="Password"
+                        label="Contraseña"
                         isRequired
                         value={password}
                         onChangeText={(pass) => setPassword(pass)}
@@ -290,7 +272,7 @@ const SignUp = () => {
                         secureTextEntry
                     />
                     <FormItem
-                        label="Repeat your password"
+                        label="Confirmar contraseña"
                         isRequired
                         value={password2}
                         onChangeText={(pass) => setPassword2(pass)}
@@ -300,30 +282,14 @@ const SignUp = () => {
                         secureTextEntry
                     />
                     <View>
-                        <Text style={{ textAlign: 'center', fontSize: 15 }}>Already registered?</Text>
+                        <Text style={{ textAlign: 'center', fontSize: 15 }}>Ya estas registrado?</Text>
                         <TouchableOpacity underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("Profile")}>
-                            <Text style={[styles.text.primary, { textAlign: 'center', fontSize: 30, textDecorationLine:'underline' }]}>Sign In!</Text>
+                            <Text style={[styles.text.primary, { textAlign: 'center', fontSize: 30, textDecorationLine:'underline' }]}>Inicia sesión!</Text>
                         </TouchableOpacity>
                     </View>
 
                 </Form>
             </ImageBackground>
-                <View style={heroStyles.navigateButtons}>
-                    <TouchableOpacity underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("Profile")}>
-                        <View style={{ height: "50%", flexDirection: 'row', alignItems: 'center', width: '100%', paddingVertical: 40, paddingHorizontal: 20 }}>
-                        <Text style={{ borderWidth: 2, backgroundColor: "#ccc", padding: 10 }} >
-                            Inicia sesión
-                        </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("SignUp")}>
-                        <View style={{ height: "50%", flexDirection: 'row', alignItems: 'center', width: '100%', paddingVertical: 40, paddingHorizontal: 20 }}>
-                        <Text style={{ borderWidth: 2, backgroundColor: "#ccc", padding: 10 }} >
-                            Registrate
-                        </Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
         </ScrollView>
     )
 }
