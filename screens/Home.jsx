@@ -1,14 +1,15 @@
-import { ScrollView } from 'react-native';
+import { View, useWindowDimensions } from 'react-native';
 
 import Hero from '../components/Hero'
 import About from '../components/About'
 
 const Home = () => {
+  const { height, width } = useWindowDimensions();
   return (
-    <ScrollView >
+    <View style={{height: height}}>
       <Hero />
       <About />
-    </ScrollView>
+    </View>
   )
 }
 

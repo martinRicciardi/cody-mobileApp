@@ -8,7 +8,6 @@ const userActions = {
         return async (dispatch, getState) => { //propiedades de despacho y estado
         try{
             const res = await axios.post('https://cody-coffe-api.herokuapp.com/api/auth/signup', {userData})
-            console.log(res)
             
             dispatch({
                 type: 'MESSAGE', 
