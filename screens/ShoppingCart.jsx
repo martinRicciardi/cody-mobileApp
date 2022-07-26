@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { StyleSheet, View, ImageBackground, useWindowDimensions, ScrollView, Image, TouchableOpacity, Text } from "react-native";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons, Entypo, Ionicons } from '@expo/vector-icons';
 import { DataTable } from 'react-native-paper';
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -22,106 +22,139 @@ export default function ShoppingCart() {
             padding: 30,
             width: width
         },
-        table: {
+        tableContainer: {
             width: width,
-            height: height,
+            flexGrow: 2,
+            padding: 20,
+            height: height - 300
+        },
+        table: {
+            width: '100%',
+            minHeight: height / 2,
             backgroundColor: '#fae1d0',
             borderRadius: 10,
+            padding: 15
+
         },
-        tableHead: {
-            height: 50,
-            width: width,
-            borderWidth: 3,
-            backgroundColor: '#f9b384d7',
-            flexDirection: 'row',
-            alignItems: 'center',
+        tableContent: {
             justifyContent: 'space-between'
-        },
-        headItem: {
-            height: '100%',
-            borderEndWidth: 2,
-            width: width / 6,
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 5
-        },
-        headItemEmpty: {
-            height: '100%',
-            width: width / 6,
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: 5
         },
         tableRow: {
-            height: 100,
+            height: 50,
             width: '100%',
-            borderBottomWidth: 3,
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'space-between'
+            justifyContent: 'space-around',
+
+        },
+        rowName: {
+            height: '100%',
+            width: '35%',
+            flexGrow: 1,
+            alignItems: 'center',
+            justifyContent: 'center'
         },
         rowItem: {
             height: '100%',
-            width: width / 6,
-            borderEndWidth: 2,
+            alignItems: 'center',
+            justifyContent: 'center'
+        },
+        btn: {
+            borderRadius: 15,
+            height: 60,
+            backgroundColor: '#fae1d0',
+            borderBottomEndRadius: 15,
+            borderBottomStartRadius: 15,
+            alignSelf: 'flex-end',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: 5
-        },
-
-
-    });
-    const styles = StyleSheet.create({
-        container: {
-            backgroundColor: '#fae1d0',
-            width:width,
-            height: height
+            padding: 10
         }
     });
 
     const cart = useSelector(store => store.productReducer.cart);
 
+    let total = 0;
+
     return (
 
-        <View style={{ height: height }} >
+        <View style={{ height: height, justifyContent: 'space-between', backgroundColor: '#f9b384d7' }} >
             <ImageBackground style={cartStyles.storeBanner} source={storeBanner} resizeMethod='auto' resizeMode="cover" >
-                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10 }} >Carrito de Compras</Text>
+                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10 }} >Tu Pedido</Text>
             </ImageBackground>
-            <ScrollView contentContainerStyle={{
-                justifyContent: 'space-around',
-                alignItems: 'center'
-            }}>
-                <View style={styles.container}>
-                    {cart.length > 0 ?
-                        <DataTable>
-                            <DataTable.Header>
-                                <DataTable.Title>Producto</DataTable.Title>
-                                <DataTable.Title>Cantidad</DataTable.Title>
-                                <DataTable.Title>Precio</DataTable.Title>
-                                <DataTable.Title>Opcion</DataTable.Title>
-                                <DataTable.Title>Opcion</DataTable.Title>
-                            </DataTable.Header>
+            <View style={cartStyles.tableContainer}>
+                {/* <ScrollView > */}
+                    <View style={cartStyles.table}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            {cart.length > 0 ?
+                                <View style={{ justifyContent: 'space-between', height: '100%', width: '100%' }}>
+                                    <ScrollView  >
+                                        {cart?.map((item, i) => {
+                                            total += item.price * item.quantity;
+                                            return (
+                                                <View key={i} style={cartStyles.tableRow}>
+                                                    <View style={cartStyles.rowName} >
+                                                        <Text style={{ textAlign: 'center', fontSize: 15 }}>{item.name}</Text>
+                                                    </View>
+                                                    <View style={cartStyles.rowItem}>
+                                                        <Text>x {item.quantity}</Text>
+                                                    </View>
+                                                    <View style={[cartStyles.rowItem, { flexGrow: 1 }]}>
+                                                        <Text>${item.price * item.quantity}</Text>
+                                                    </View>
+                                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', flexGrow: 1 }}>
+                                                        <TouchableOpacity underlayColor="#000" activeOpacity={0.6} style={{ alignItems: 'center', justifyContent: 'center', textAlign: 'center' }} onPress={async () => {
+                                                            await dispatch(productActions.delFromCart(item._id));
+                                                        }}>
+                                                            <Ionicons name="remove-circle" size={24} color="black" />
+                                                        </TouchableOpacity>
+                                                        <TouchableOpacity underlayColor="#000" activeOpacity={0.6}
+                                                            style={{ alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}
+                                                            onPress={async () => {
+                                                                await dispatch(productActions.delFromCart(item._id, true))
+                                                            }} >
+                                                            <Entypo name="cross" size={24} color="black" />
+                                                        </TouchableOpacity>
+                                                    </View>
+                                                </View>
+                                            )
+                                        }
+                                        )
+                                        }
+                                    </ScrollView>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', width: '100%', paddingHorinzontal: 30, borderTopWidth: 1 , paddingTop:10}}>
+                                        <Text style={{ fontSize: 20, fontWeight: '500' }}>Total: </Text>
+                                        <Text style={{ fontSize: 20, fontWeight: '400' }}>${total}</Text>
+                                    </View>
 
-                            {cart.map((item, i) => (
-                                <DataTable.Row key={i} style={{alignItems:'center'}}>
-                                    <DataTable.Cell textStyle={{fontSize: 12}} >{item.name}</DataTable.Cell>
-                                    <DataTable.Cell textStyle={{fontSize: 12}}  numeric>{item.quantity}</DataTable.Cell>
-                                    <DataTable.Cell textStyle={{fontSize: 12}} numeric >${item.quantity * item.price}</DataTable.Cell>
-                                    <DataTable.Cell textStyle={{fontSize: 10}} numeric onPress={async()=>{
-                                    await dispatch(productActions.delFromCart(item._id));
-                                }}
-                                style={{backgroundColor:'#ccc'}}>Eliminar uno</DataTable.Cell>
-                                    <DataTable.Cell textStyle={{fontSize: 10}} numeric onPress={async()=>{
-                                    await dispatch(productActions.delFromCart(item._id, all=true));
-                                }} style={{backgroundColor:'#ccc'}}>Eliminar todos</DataTable.Cell>
-                                </DataTable.Row>
-                            )) }  
-                        </DataTable>
-                        :
-                        null
-                    }
+                                </View>
+                                :
+                                < View style={{ justifyContent: 'center', alignSelf: 'center' }} >
+                                    <Text>Añade productos a tu pedido!</Text>
+                                </View>
+                            }
+                        </View>
+                    </View>
+                {/* </ScrollView > */}
+            </View>
+            {cart.length > 0 &&
+                <View style={{ marginBottom: 50, flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
+
+                    <TouchableOpacity underlayColor="#000" activeOpacity={0.6}
+                        style={cartStyles.btn}
+                        onPress={async () => {
+                            await dispatch(productActions.clearCart());
+                        }}>
+                        <Text >Limpiar Carrito</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity underlayColor="#000" activeOpacity={0.6}
+                        style={[cartStyles.btn]}>
+                        <Text >Confirmar Pedido</Text>
+                    </TouchableOpacity>
+
                 </View>
-            </ScrollView >
+            }
+
         </View >
     );
 }
