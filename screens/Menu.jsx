@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet, Button, View, ImageBackground, useWindowDimensions, ScrollView, Image, TouchableOpacity, Text } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import menubg from '../assets/banner-hero3.jpg'
 import productbg from '../assets/card-cont.jpg'
@@ -9,6 +9,7 @@ import productActions from "../redux/actions/productActions";
 
 const Menu = ({ route }) => {
     const { height, width } = useWindowDimensions();
+
     const menuStyles = StyleSheet.create({
         menuBanner: {
             height: height / 6,
@@ -55,22 +56,32 @@ const Menu = ({ route }) => {
                 justifyContent: 'space-around',
                 alignItems: 'center'
             }}>
-                {products && products.map((item, i) => {
+                {products.length > 0 && products.map((item, i) => {
                     return (
                         <ImageBackground key={i} style={menuStyles.product} imageStyle={{ borderRadius: 20 }} source={productbg} resizeMethod='auto' resizeMode="cover" >
                             <Image source={{ uri: item.image }} style={{
                                 width: '70%',
                                 height: '65%'
                             }} resizeMethod='auto' resizeMode='contain' />
-                            <View style={{ height: '35%', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Text variant='h3' style={{ fontSize: 18, backgroundColor: '#fff', color: '#f9b384d3', paddingHorizontal: 15, paddingVertical: 7, borderRadius: 10, fontWeight: '800', marginVertical: 5 }} >{item.name}</Text>
-                                <Text variant='h3' style={{ fontSize: 15, backgroundColor: '#f9b384d3', paddingHorizontal: 15, paddingVertical: 5, borderRadius: 10, borderColor: '#fff', borderWidth: 1, marginVertical: 3 }} >${item.price}</Text>
-                                <Text variant='h3' style={{ fontSize: 15, backgroundColor: '#f9b384d3', paddingHorizontal: 15, paddingVertical: 5, borderRadius: 10, borderColor: '#fff', borderWidth: 1, marginVertical: 3 }} >Stock: {item.stock}</Text>
-                                <TouchableOpacity key={i} underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("Menu", { category: item.name })}>
-                                <Text style={{ fontSize: 15, paddingHorizontal: 20, paddingVertical: 8, borderRadius: 10, backgroundColor:"#318aac", borderColor: '#fff', borderWidth: 1, marginVertical: 10, color: '#fff', fontWeight: '600' }} onPress={async()=>{
-                                    await dispatch(productActions.addToCart(item._id));
-                                }}>Pedir</Text>
-                                </TouchableOpacity>
+                            <View style={{ height: '35%', width: '100%', justifyContent: 'space-evenly', alignItems: 'center' }}>
+                                <View style={{ width: '60%', justifyContent: 'space-evenly', alignItems: 'center' }}>
+                                    <Text variant='h3' style={{ fontSize: 18, backgroundColor: '#fff', color: '#f9b384d3', paddingHorizontal: 5, paddingVertical: 7, borderRadius: 10, fontWeight: '800', textAlign: 'center' }} >{item.name}</Text>
+                                </View>
+                                {item.stock > 0 ?
+                                    <Text variant='h3' style={{ fontSize: 15, backgroundColor: '#f9b384d3', paddingHorizontal: 15, paddingVertical: 5, borderRadius: 10, borderColor: '#fff', borderWidth: 1, fontWeight: '600' }} >${item.price}</Text>
+                                    :
+                                    <Text variant='h3' style={{ fontSize: 15, backgroundColor: 'red', paddingHorizontal: 15, color: '#fff', paddingVertical: 5, borderRadius: 10, borderColor: '#fff', borderWidth: 1 }} >AGOTADO</Text>
+
+                                }
+                                {item.stock > 0 &&
+                                    <TouchableOpacity style={{ width: 200 }} key={i} underlayColor="#000" activeOpacity={0.6} onPress={async () => {
+                                                await dispatch(productActions.addToCart(item._id));
+                                            }} >
+                                        <View style={{ width: '100%', alignItems: 'center' }}>
+                                            <Text style={{ fontSize: 15, paddingHorizontal: 20, paddingVertical: 8, borderRadius: 10, backgroundColor: "#318aac", borderColor: '#fff', borderWidth: 1, marginVertical: 10, color: '#fff', fontWeight: '600' }} >Pedir</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                }
                             </View>
                         </ImageBackground>
                     )
