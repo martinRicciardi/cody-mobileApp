@@ -5,8 +5,7 @@ const productActions = {
     getProducts: () => {
         return async (dispatch, getState) => {
             const res = await axios.get('https://cody-coffe-api.herokuapp.com/api/products')
-            dispatch({ type: "GETPRODUCTS", payload: res.data.response.products })
-            dispatch({ type: "GETSTOCK", payload: res.data.response.products })
+            dispatch({ type: "GETPRODUCTS", payload: res.data.response.products });
         }
     },
     getOneProduct: (id) => {
@@ -16,9 +15,9 @@ const productActions = {
         }
     },
 
-    filterProduct: (input) => {
+    filterProduct: (input, category) => {
         return async (dispatch, getState) => {
-            dispatch({ type: "FILTERPRODUCTS", payload: input })
+            dispatch({ type: "FILTERPRODUCTS", payload: {input: input, category: category} })
         }
     },
 

@@ -26,11 +26,19 @@ const productReducer = (state = initialState, action) => {
             }
 
         case "FILTERPRODUCTS":
-            let productFilter = state.products.filter(item => item.name.toLowerCase().startsWith(action.payload.trim().toLowerCase()))
-            return {
-                ...state, //tomo el estadio inicial
-                filter: productFilter //le cargo este nuevo estado del filtro
+            let productFilter = state.products.filter(item => item.name.toLowerCase().startsWith(action.payload.input.trim().toLowerCase()) && item.categories.includes(action.payload.category))
+            if (action.payload.input !== '') {
+                return {
+                    ...state, //tomo el estadio inicial
+                    filter: productFilter //le cargo este nuevo estado del filtro
 
+                }
+            } else {
+                return {
+                    ...state, //tomo el estadio inicial
+                    filter: state.productsbycategory //le cargo este nuevo estado del filtro
+
+                }
             }
 
         case 'GETPRODUCTSBYCATEGORY':

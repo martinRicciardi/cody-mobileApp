@@ -41,12 +41,13 @@ const Store = () => {
         }
     });
 
-        const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(productActions.getProducts())
-    },[])
-
+    }, [])
+    const products = useSelector(store => store.productReducer.products)
+// console.log(products)
     const categories = [{ name: 'Desayuno', image: codyBreakFast }, { name: 'Almuerzo', image: codyLunch }, { name: 'Postre', image: codySnack }, { name: 'Producto', image: codyProduct }]
     return (
         <View style={{ height: height }}>

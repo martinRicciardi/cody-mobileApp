@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import productActions from "../redux/actions/productActions";
 
 import storeBanner from '../assets/banner-store.jpg'
+import cody from '../assets/cody4.png'
 
 
 
@@ -17,10 +18,12 @@ export default function ShoppingCart() {
     const cartStyles = StyleSheet.create({
         storeBanner: {
             height: height / 5,
-            justifyContent: 'space-around',
+            flexDirection:'row',
+            justifyContent: 'flex-end',
             alignItems: 'center',
             padding: 30,
-            width: width
+            width: width,
+            borderWidth:2
         },
         tableContainer: {
             width: width,
@@ -57,7 +60,8 @@ export default function ShoppingCart() {
         rowItem: {
             height: '100%',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            minWidth: 40
         },
         btn: {
             borderRadius: 15,
@@ -80,61 +84,71 @@ export default function ShoppingCart() {
 
         <View style={{ height: height, justifyContent: 'space-between', backgroundColor: '#f9b384d7' }} >
             <ImageBackground style={cartStyles.storeBanner} source={storeBanner} resizeMethod='auto' resizeMode="cover" >
+                <View style={{
+                    // flexGrow:1,
+                    width: '30%',
+                    height: '80%'
+                }} ></View>
                 <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10 }} >Tu Pedido</Text>
+                <Image source={cody} style={{
+                    // flexGrow:1,
+                    width: '30%',
+                    height: '80%'
+                }} resizeMethod='auto' resizeMode='contain' />
             </ImageBackground>
             <View style={cartStyles.tableContainer}>
                 {/* <ScrollView > */}
-                    <View style={cartStyles.table}>
-                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                            {cart.length > 0 ?
-                                <View style={{ justifyContent: 'space-between', height: '100%', width: '100%' }}>
-                                    <ScrollView  >
-                                        {cart?.map((item, i) => {
-                                            total += item.price * item.quantity;
-                                            return (
-                                                <View key={i} style={cartStyles.tableRow}>
-                                                    <View style={cartStyles.rowName} >
-                                                        <Text style={{ textAlign: 'center', fontSize: 15 }}>{item.name}</Text>
-                                                    </View>
-                                                    <View style={cartStyles.rowItem}>
-                                                        <Text>x {item.quantity}</Text>
-                                                    </View>
-                                                    <View style={[cartStyles.rowItem, { flexGrow: 1 }]}>
-                                                        <Text>${item.price * item.quantity}</Text>
-                                                    </View>
-                                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', flexGrow: 1 }}>
-                                                        <TouchableOpacity underlayColor="#000" activeOpacity={0.6} style={{ alignItems: 'center', justifyContent: 'center', textAlign: 'center' }} onPress={async () => {
-                                                            await dispatch(productActions.delFromCart(item._id));
-                                                        }}>
-                                                            <Ionicons name="remove-circle" size={24} color="black" />
-                                                        </TouchableOpacity>
-                                                        <TouchableOpacity underlayColor="#000" activeOpacity={0.6}
-                                                            style={{ alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}
-                                                            onPress={async () => {
-                                                                await dispatch(productActions.delFromCart(item._id, true))
-                                                            }} >
-                                                            <Entypo name="cross" size={24} color="black" />
-                                                        </TouchableOpacity>
-                                                    </View>
+                <View style={cartStyles.table}>
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        {cart.length > 0 ?
+                            <View style={{ justifyContent: 'space-between', height: '100%', width: '100%' }}>
+                                <ScrollView  >
+                                    {cart?.map((item, i) => {
+                                        total += item.price * item.quantity;
+                                        return (
+                                            <View key={i} style={cartStyles.tableRow}>
+                                                <View style={cartStyles.rowName} >
+                                                    <Text style={{ textAlign: 'center', fontSize: 15 }}>{item.name}</Text>
                                                 </View>
-                                            )
-                                        }
+                                                <View style={cartStyles.rowItem}>
+                                                    <Text>x {item.quantity}</Text>
+                                                </View>
+                                                <View style={[cartStyles.rowItem, { flexGrow: 1 }]}>
+                                                    <Text>${item.price * item.quantity}</Text>
+                                                </View>
+                                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', flexGrow: 1, maxWidth: 55 }}>
+                                                    <TouchableOpacity underlayColor="#000" activeOpacity={0.6} style={{ alignItems: 'center', justifyContent: 'center', textAlign: 'center', width: '50%' }} onPress={async () => {
+                                                        await dispatch(productActions.delFromCart(item._id));
+                                                    }}>
+                                                        <Ionicons name="remove-circle" size={24} color="black" />
+                                                    </TouchableOpacity>
+                                                    <TouchableOpacity underlayColor="#000" activeOpacity={0.6}
+                                                        style={{ alignItems: 'center', justifyContent: 'center', textAlign: 'center', width: '50%' }}
+                                                        onPress={async () => {
+                                                            await dispatch(productActions.delFromCart(item._id, true))
+                                                        }} >
+                                                        <Entypo name="cross" size={24} color="black" />
+                                                    </TouchableOpacity>
+                                                </View>
+                                            </View>
                                         )
-                                        }
-                                    </ScrollView>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', width: '100%', paddingHorinzontal: 30, borderTopWidth: 1 , paddingTop:10}}>
-                                        <Text style={{ fontSize: 20, fontWeight: '500' }}>Total: </Text>
-                                        <Text style={{ fontSize: 20, fontWeight: '400' }}>${total}</Text>
-                                    </View>
+                                    }
+                                    )
+                                    }
+                                </ScrollView>
+                                <View style={{ flexDirection: 'row', justifyContent: 'flex-end', width: '100%', paddingHorinzontal: 30, borderTopWidth: 1, paddingTop: 10 }}>
+                                    <Text style={{ fontSize: 20, fontWeight: '500' }}>Total: </Text>
+                                    <Text style={{ fontSize: 20, fontWeight: '400' }}>${total}</Text>
+                                </View>
 
-                                </View>
-                                :
-                                < View style={{ justifyContent: 'center', alignSelf: 'center' }} >
-                                    <Text>Añade productos a tu pedido!</Text>
-                                </View>
-                            }
-                        </View>
+                            </View>
+                            :
+                            < View style={{ justifyContent: 'center', alignSelf: 'center' }} >
+                                <Text>Añade productos a tu pedido!</Text>
+                            </View>
+                        }
                     </View>
+                </View>
                 {/* </ScrollView > */}
             </View>
             {cart.length > 0 &&
