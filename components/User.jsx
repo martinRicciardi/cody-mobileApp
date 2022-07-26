@@ -35,19 +35,18 @@ const User = () => {
             height:'100%'
         },
         user: {
-            justifyContent: 'space-around',
+            justifyContent: 'space-between',
             alignItems: "center",
             backgroundColor: '#fae1d0',
             borderRadius: 10,
-            padding: 15,
-            height: '50%',
+            padding: 5,
+            height: '60%',
             borderBottomWidth:2
         },
         options: {
             justifyContent: 'flex-end',
             alignItems: "center",
-            // padding: 15,
-            height: '50%'
+            height: '40%'
         }
 
     });
@@ -81,7 +80,7 @@ const User = () => {
                         </View>
                         <View style={{ alignItems: 'center' }}>
                             <Text style={{ fontSize: 20, borderBottomWidth: 1 }}>Datos personales:</Text>
-                            <Text style={{ fontSize: 15, marginTop: 10 }}>
+                            <Text style={{ fontSize: 15, marginTop: 15 }}>
                                 Email: {user.email}
                             </Text>
                         </View>
@@ -93,8 +92,8 @@ const User = () => {
                         <TouchableOpacity onPress={async () => await dispatch(userActions.signOutUser())} underlayColor="#000" activeOpacity={0.6} style={{ backgroundColor: "#fc793f", height: 40, width: '60%', justifyContent: "center", alignItems: "center", borderRadius: 5, marginVertical:5 }}>
                             <Text style={{ fontSize: 15 }}>Cerrar sesión</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity underlayColor="#000" activeOpacity={0.6} style={{ backgroundColor: "#fc0505", height: 35, width: '60%', justifyContent: "center", alignItems: "center", borderRadius: 5, marginVertical:5 }}>
-                            <Text style={{ fontSize: 15 }}>Eliminar cuenta</Text>
+                        <TouchableOpacity underlayColor="#000" activeOpacity={0.6} style={{ justifyContent: "center", alignItems: "center", marginTop:25 }}>
+                            <Text style={{ fontSize: 15, color:"#fc0505" }}>Eliminar cuenta</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
