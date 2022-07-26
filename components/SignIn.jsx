@@ -126,7 +126,7 @@ const SignIn = () => {
                         showErrorIcon
                         textContentType='emailAddress'
                         keyboardType='email-address'
-                        textInputStyle={{ color: '#f9b384d7' }}
+                        textInputStyle={{ color: '#000' }}
                     />
                     <FormItem
                         label="Contraseña"
