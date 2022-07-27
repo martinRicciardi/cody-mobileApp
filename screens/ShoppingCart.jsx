@@ -7,9 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import productActions from "../redux/actions/productActions";
 
 import storeBanner from '../assets/banner-store.jpg'
-import cody from '../assets/cody4.png'
-
-
+import cody from '../assets/cody6.png'
 
 export default function ShoppingCart() {
 
@@ -19,11 +17,10 @@ export default function ShoppingCart() {
         storeBanner: {
             height: height / 5,
             flexDirection:'row',
-            justifyContent: 'flex-end',
+            justifyContent: 'center',
             alignItems: 'center',
             padding: 30,
-            width: width,
-            borderWidth:2
+            width: width
         },
         tableContainer: {
             width: width,
@@ -87,13 +84,12 @@ export default function ShoppingCart() {
                 <View style={{
                     // flexGrow:1,
                     width: '30%',
-                    height: '80%'
+                    height: '100%'
                 }} ></View>
-                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10 }} >Tu Pedido</Text>
+                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, width:'50%', textAlign:'center' }} >Tu Pedido</Text>
                 <Image source={cody} style={{
-                    // flexGrow:1,
                     width: '30%',
-                    height: '80%'
+                    height: '100%'
                 }} resizeMethod='auto' resizeMode='contain' />
             </ImageBackground>
             <View style={cartStyles.tableContainer}>

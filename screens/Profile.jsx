@@ -9,9 +9,9 @@ import { useSelector } from "react-redux";
 const Profile = () => {
     const user = useSelector(store => store.userReducer.user)
     return(
-        <ScrollView>
+        <View>
         {user ? <User/> : <SignIn/>}
-        </ScrollView>
+        </View>
     )
 }
 

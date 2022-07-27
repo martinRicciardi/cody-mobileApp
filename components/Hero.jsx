@@ -45,7 +45,18 @@ const Hero = () => {
       justifyContent: 'flex-start',
       alignItems: 'center',
       padding: 60
-    }
+    },
+    btn: {
+            borderRadius: 15,
+            height: 60,
+            backgroundColor: '#f9b384d7',
+            borderBottomEndRadius: 15,
+            borderBottomStartRadius: 15,
+            alignSelf: 'flex-end',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 10
+        }
   });
 
   return (
@@ -55,9 +66,9 @@ const Hero = () => {
         <Text variant='h3' style={{ fontSize: 20 }} >Coffe & Code</Text>
       </View>
       <View style={{ height: "50%", flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%', paddingVertical: 40, paddingHorizontal: 20 }}>
-        <TouchableOpacity underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("Main")}>
-          <Text style={{ borderWidth: 2, backgroundColor: "#ccc", padding: 10 }} >
-            Entra y comprá
+        <TouchableOpacity style={heroStyles.btn} underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("Main")}>
+          <Text>
+            Ingresar a la Tienda
           </Text>
         </TouchableOpacity>
       </View>

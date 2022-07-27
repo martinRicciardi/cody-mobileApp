@@ -22,7 +22,7 @@ const Store = () => {
             width: width
         },
         menuContainer: {
-            backgroundColor: '#fae1d0',
+            backgroundColor: '#f9b384d7',
             width: width,
             marginBottom: 40
         },

@@ -5,8 +5,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import userActions from '../redux/actions/userActions';
 import Banner from '../assets/banner-store.jpg'
-// import dataActions from '../redux/actions/dataActions';
-// import bgCity from './../assets/city-body.jpg'
+import cody from '../assets/cody2.png'
 // import AppLoading from 'expo-app-loading';
 // import { Comfortaa_500Medium } from '@expo-google-fonts/comfortaa';
 // import { useFonts, Charm_400Regular } from '@expo-google-fonts/charm';
@@ -19,6 +18,7 @@ const SignUp = () => {
     const [image, setImage] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
+    const { height, width } = useWindowDimensions();
     const navigation = useNavigation();
     const dispatch = useDispatch();
     // let [fontsLoaded] = useFonts({
@@ -59,113 +59,30 @@ const SignUp = () => {
                 textShadowRadius: 3
             }
         },
-        authContainer: {
-            flexGrow: 1,
-            justifyContent: 'center',
-            padding: 60,
-            paddingTop: 80,
-            backgroundColor: "#fae1d0"
-        },
-        formContainer: {
-            borderWidth: 1,
-            padding: 20,
-            backgroundColor: 'rgba(255,255,255,0.8)',
-            borderRadius: 12
-        },
-        inputContainer: {
-            // marginTop: 20,
-            width: '100%',
-            height: 35,
-            justifyContent: 'center',
-            marginTop: 15
-        },
-        input: {
-            borderWidth: 1,
-            backgroundColor: "white",
-            width: '100%',
-            height: 40,
-            padding: 3,
-            borderRadius: 5,
-        },
-        btnBack: {
-            container: {
-                paddingHorizontal: 20,
-                borderWidth: 3,
-                borderColor: 'white',
-                backgroundColor: '#00695c',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: 40,
-            },
-            text: {
-                textTransform: "uppercase",
-                color: 'white'
-            }
-        },
-        btnMoreInfo: {
-            container: {
-                paddingHorizontal: 10,
-                borderWidth: 2,
-                borderColor: 'white',
-                borderRadius: 5,
-                backgroundColor: '#00695c',
-                textAlign: "center",
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: 40,
-            },
-            text: {
-                textTransform: "uppercase",
-                color: 'white'
-            }
-        },
-    });
-
-    const { height, width } = useWindowDimensions();
-    const userStyles = StyleSheet.create({
-        storeBanner: {
+        authBanner: {
             height: height / 5,
-            justifyContent: 'space-around',
+            flexDirection: 'row',
+            justifyContent: 'center',
             alignItems: 'center',
             padding: 30,
             width: width
         },
-        photo: {
-            width: 100,
-            height: 100,
-            backgroundColor: "#f9b384d7",
-            borderRadius: 100
+        authContainer: {
+            flexGrow: 1,
+            justifyContent: 'center',
+            padding: 15,
+            paddingBottom: 50,
+            backgroundColor: '#f9b384d7',
         },
-        container: {
-            width: "100%",
-            height: 635,
-            padding: 30,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-        },
-        user: {
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center"
+        formContainer: {
+            borderWidth: 1,
+            padding: 15,
+            backgroundColor: '#fae1d0',
+            borderRadius: 12,
+            justifyContent: 'space-evenly'
         }
     });
 
-    // useEffect(() => {
-    //     if (countryList.length < 1) {
-    //         dispatch(dataActions.getCountries());
-    //     }
-    //     // eslint-disable-next-line
-    // }, []);
-
-    // let countriesFetch = useSelector(store => store.dataReducer.countries);
-    // let countryList = []
-
-    // countriesFetch.length > 0 &&
-    //     countriesFetch.map(country => countryList.push({ label: country, value: country }));
-
-    // Sign Up Form
     async function handleSubmit() {
         const userData = {
             firstName: firstName.trim(),
@@ -193,9 +110,19 @@ const SignUp = () => {
     return (
         <ScrollView>
 
-                <ImageBackground style={userStyles.storeBanner} source={Banner} resizeMethod='auto' resizeMode="cover" >
-                        <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10 }} >Mi Perfil</Text>
-                </ImageBackground>
+            <ImageBackground style={styles.authBanner} source={Banner} resizeMethod='auto' resizeMode="cover" >
+                <View style={{
+                    // flexGrow:1,
+                    width: '30%',
+                    height: '100%'
+                }} ></View>
+                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, textAlign: 'center', width: '50%' }} >Perfil</Text>
+                <Image source={cody} style={{
+                    // flexGrow:1,
+                    width: '30%',
+                    height: '100%'
+                }} resizeMethod='auto' resizeMode='cover' />
+            </ImageBackground>
 
             <ImageBackground style={styles.authContainer} resizeMethod='auto' resizeMode="cover" >
                 <Form
@@ -204,7 +131,7 @@ const SignUp = () => {
                     buttonStyle={{ backgroundColor: '#f9b384d7' }}
                     style={styles.formContainer}
                 >
-                    <Text style={[styles.text.primary, { textAlign: 'center', marginBottom: 10, fontSize: 30 }]}>Registrate</Text>
+                    <Text style={[styles.text.primary, { textAlign: 'center', marginBottom: 10, fontSize: 30 }]}>Registro</Text>
 
                     <FormItem
                         label="Nombre"
@@ -215,7 +142,7 @@ const SignUp = () => {
                         showErrorIcon
                         textContentType='givenName'
                         keyboardType='default'
-                        textInputStyle={{ color: '#00695c' }}
+                        textInputStyle={{ color: '#000' }}
                     />
                     <FormItem
                         label="Apellido"
@@ -226,21 +153,8 @@ const SignUp = () => {
                         showErrorIcon
                         textContentType='familyName'
                         keyboardType='default'
-                        textInputStyle={{ color: '#00695c' }}
+                        textInputStyle={{ color: '#000' }}
                     />
-                    {/* {countryList.length > 0 &&
-                        <Picker
-                            items={countryList}
-                            label="Country"
-                            asterik
-                            isRequired
-                            selectedValue={country}
-                            placeholder='------ Select your country ------'
-                            textAlign='center'
-                            onSelection={(item) => setCountry(item.value)}
-                        />
-                    } */}
-
                     <FormItem
                         label="Foto URL"
                         value={image}
@@ -248,7 +162,7 @@ const SignUp = () => {
                         showErrorIcon
                         textContentType='URL'
                         keyboardType='url'
-                        textInputStyle={{ color: '#00695c' }}
+                        textInputStyle={{ color: '#000' }}
                     />
                     <FormItem
                         label="Email"
@@ -259,7 +173,7 @@ const SignUp = () => {
                         showErrorIcon
                         textContentType='emailAddress'
                         keyboardType='email-address'
-                        textInputStyle={{ color: '#00695c' }}
+                        textInputStyle={{ color: '#000' }}
                     />
                     <FormItem
                         label="Contraseña"
@@ -284,7 +198,7 @@ const SignUp = () => {
                     <View>
                         <Text style={{ textAlign: 'center', fontSize: 15 }}>Ya estas registrado?</Text>
                         <TouchableOpacity underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("Profile")}>
-                            <Text style={[styles.text.primary, { textAlign: 'center', fontSize: 30, textDecorationLine:'underline' }]}>Inicia sesión!</Text>
+                            <Text style={[styles.text.primary, { textAlign: 'center', fontSize: 30, textDecorationLine: 'underline' }]}>Inicia sesión!</Text>
                         </TouchableOpacity>
                     </View>
 
@@ -294,57 +208,3 @@ const SignUp = () => {
     )
 }
 export default SignUp;
-
-
-
-
-
-
-
-
-
-// import React,{useState} from "react";
-// import {connect} from 'react-redux'
-// import userActions from "../redux/actions/userActions";
-
-// function SignUp(props) {
-//     const [showpass, setShowPass] = useState(false)
-//     const [firstName,setFirstName] = useState("")
-//     const [lastName,setLastName] = useState("")
-//     const [userPhoto,setUserPhoto] = useState("")
-//     const [country,setCountry] = useState("")
-//     const [email,setEmail] = useState("")
-//     const [password,setPassword] = useState("")
-//     const [passwordRepeat, setPasswordRepeat] = useState("")
-
-//     var countries = ["","Mexico","U.S.A.","Brazil","Argentina","China","Japan","Spain","England","France","Italy","Belgium"]
-
-//     const handleSubmit = (event) => {
-//         event.preventDefault()
-//         const userData = {
-//             firstName: firstName,
-//             lastName: lastName,
-//             image: userPhoto,
-//             email: email,
-//             password: password,
-//             passwordRepeat: passwordRepeat,
-//             country: country,
-//             method: "signUpForm"
-//         }
-//         props.signUpUser(userData)
-//     }
-//     return (
-//         <>
-            
-//         </>
-//     );
-// }
-// const mapDispatchToProps = {
-//     signUpUser: userActions.signUpUsers
-// }
-// const mapStateToProps = (state) => {
-//     return {
-//         message: state.userReducer.message
-//     }
-// }
-// export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

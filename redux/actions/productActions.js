@@ -4,7 +4,7 @@ import axios from 'axios';
 const productActions = {
     getProducts: () => {
         return async (dispatch, getState) => {
-            const res = await axios.get('https://cody-coffe-api.herokuapp.com/api/products')
+            const res = await axios.get('https://cody-coffee-api.herokuapp.com/api/products')
             dispatch({ type: "GETPRODUCTS", payload: res.data.response.products });
         }
     },
@@ -46,6 +46,12 @@ const productActions = {
     clearCart: () => {
         return async (dispatch, getState) => {
             dispatch({ type: "CLEAR_CART", payload: null })
+        }
+    },
+    buyProduct: (id, quantity) =>{
+        return async (dispatch, getState) => {
+            const res = await axios.get('https://cody-coffee-api.herokuapp.com/api/products/buy')
+            dispatch({ type: "BUY", payload: res});
         }
     }
 }
