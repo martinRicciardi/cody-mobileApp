@@ -1,10 +1,9 @@
 import axios from "axios";
 import URL_API from "../../url";
-import { AsyncStorage } from 'react-native';
 
 const userActions = {
 
-    signUpUsers: (userData) => {
+    signUpUsers: (userData) => { 
         return async (dispatch, getState) => {
             try {
                 const res = await axios.post(`${URL_API}/api/auth/signup`, { userData })
@@ -12,7 +11,7 @@ const userActions = {
                     type: 'MESSAGE',
                     payload: {
                         view: true,
-                        message: res.data.message,
+                        message: res.data.message, // SNACKBAR
                         success: res.data.success
                     }
                 })
@@ -26,36 +25,43 @@ const userActions = {
         return async (dispatch, getState) => {
             const res = await axios.put(`${URL_API}/api/auth/signin`, { logedUser })
             if (res.data.success) {
-                await AsyncStorage.setItem('@token', res.data.response.token)
+                localStorage.setItem('token', res.data.response.token)
                 dispatch({
                     type: 'USER',
-                    payload: res.data
+                    payload: res.data.response,
+                    view: true,
+                    message: res.data.message,
+                    success: res.data.success
                 })
             } else {
                 dispatch({
                     type: 'MESSAGE',
                     payload: {
-                        message: res.data.message
+                        view: true,
+                        message: res.data.message,
+                        success: res.data.success
                     }
                 })
-
-            } return res
-
+            }
         }
     },
-    signOutUser: () => {
+    signOutUser: (userOut) => {
         return async (dispatch, getState) => {
-            await AsyncStorage.removeItem('@token')
+            localStorage.removeItem('token')
             dispatch({
-                type: 'LOG_OUT'
+                type: 'USER',
+                payload: null,
             })
         }
     },
     verifyToken: (token) => {
         return async (dispatch, getState) => {
-            await axios.get(`${URL_API}/api/auth/`, {
-                headers: { 'Authorization': 'Bearer ' + token }
-            })
+            await axios.get(`${URL_API}/api/auth/`,
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + token,
+                    }
+                })
                 .then(user => {
                     if (user.data.success) {
                         dispatch({ type: 'USER', payload: user.data.response });
@@ -75,7 +81,7 @@ const userActions = {
                             type: 'MESSAGE',
                             payload: {
                                 view: true,
-                                message: "Please, sign In Again",
+                                message: "Sesión expirada.",
                                 success: false
                             }
                         })
@@ -84,5 +90,6 @@ const userActions = {
         }
     }
 }
+
 
 export default userActions
