@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, View, ImageBackground, useWindowDimensions, ScrollView, Image, TouchableOpacity, Text } from "react-native";
 import { MaterialCommunityIcons, Entypo, Ionicons } from '@expo/vector-icons';
 import { DataTable } from 'react-native-paper';
-
+import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from 'react-redux'
 import productActions from "../redux/actions/productActions";
 
@@ -13,10 +13,11 @@ export default function ShoppingCart() {
 
     const dispatch = useDispatch();
     const { height, width } = useWindowDimensions();
+    const navigation = useNavigation();
     const cartStyles = StyleSheet.create({
         storeBanner: {
             height: height / 5,
-            flexDirection:'row',
+            flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
             padding: 30,
@@ -72,7 +73,7 @@ export default function ShoppingCart() {
             padding: 10
         }
     });
-
+    
     const cart = useSelector(store => store.productReducer.cart);
 
     let total = 0;
@@ -86,7 +87,7 @@ export default function ShoppingCart() {
                     width: '30%',
                     height: '100%'
                 }} ></View>
-                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, width:'50%', textAlign:'center' }} >Tu Pedido</Text>
+                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, width: '50%', textAlign: 'center' }} >Tu Pedido</Text>
                 <Image source={cody} style={{
                     width: '30%',
                     height: '100%'
@@ -155,11 +156,11 @@ export default function ShoppingCart() {
                         onPress={async () => {
                             await dispatch(productActions.clearCart());
                         }}>
-                        <Text >Limpiar Carrito</Text>
+                        <Text >BORRAR TODO</Text>
                     </TouchableOpacity>
                     <TouchableOpacity underlayColor="#000" activeOpacity={0.6}
-                        style={[cartStyles.btn]} onPress={() => navigation.navigate("Checkout", {item: total})}>
-                        <Text >Confirmar Pedido</Text>
+                        style={[cartStyles.btn]} onPress={() => navigation.navigate("Checkout", { item: total })}>
+                        <Text >CONFIRMAR PEDIDO</Text>
                     </TouchableOpacity>
 
                 </View>
