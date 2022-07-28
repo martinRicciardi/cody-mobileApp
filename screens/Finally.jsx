@@ -1,11 +1,18 @@
-import { StyleSheet, useWindowDimensions, ImageBackground, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, useWindowDimensions, ImageBackground, Image, View, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
-
+import cody from '../assets/cody-lunch.png'
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
 import heroBg from '../assets/banner-hero4.jpg'
-
 const Finally = () => {
 
     const { height, width } = useWindowDimensions();
+
+    let [fontsLoaded] = useFonts({
+        'Thunder-Love': require('../assets/fonts/ALoveofThunder.ttf'),
+        'Mochy': require('../assets/fonts/MochiyPopOne-Regular.ttf'),
+
+    });
 
     const heroStyles = StyleSheet.create({
         text: {
@@ -36,7 +43,8 @@ const Finally = () => {
         heroContainer: {
             height: height,
             justifyContent: 'space-around',
-            alignItems: 'center'
+            alignItems: 'center',
+            padding:30
         },
         textContainer: {
             height: "50%",
@@ -54,21 +62,33 @@ const Finally = () => {
             alignItems: 'center',
             justifyContent: 'center',
             padding: 10
+        },
+        menuText: {
+            justifyContent: 'flex-start',
+            // height: 55,
+            width: 250,
+            borderRadius: 20,
+            backgroundColor: '#f9b384d7',
         }
     });
 
+    if (!fontsLoaded) {
+        return <AppLoading />;
+    }
     return (
         <ImageBackground style={heroStyles.heroContainer} source={heroBg} resizeMethod='scale' resizeMode="cover" >
-            <View style={heroStyles.textContainer} >
-                <Text variant='h1' style={{ marginVertical: 20, fontSize: 40 }} >CODY</Text>
-                <Text variant='h3' style={{ fontSize: 20 }} >Coffe & Code</Text>
-            </View>
-            <View style={{ height: "50%", flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%', paddingVertical: 40, paddingHorizontal: 20 }}>
-                <Text>
-                    Pedido enviado!
+            <View style={heroStyles.menuText}>
+                <Text style={{ textAlign: 'center', fontSize: 40, fontFamily: 'Thunder-Love', color: '#581C0C' }}>
+                    Listo!
                 </Text>
-                <Text>
-                    En cuanto el pedido esté en camino, te lo estaremos comunicando!
+            </View>
+            <Image source={cody} style={{
+                width: '70%',
+                height: '30%'
+            }} resizeMethod='auto' resizeMode='cover' />
+            <View style={heroStyles.menuText}>
+                <Text style={{ textAlign: 'center', fontSize: 20, fontFamily: 'Thunder-Love', color: '#581C0C' }}>
+                    ¡En cuanto el pedido esté en camino, te lo estaremos comunicando!
                 </Text>
             </View>
         </ImageBackground >

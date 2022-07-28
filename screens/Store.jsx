@@ -41,8 +41,6 @@ const Store = () => {
             width: 250,
             borderRadius: 20,
             backgroundColor: 'rgba(0,0,0,0.15)',
-
-
         }
     });
 
@@ -58,7 +56,6 @@ const Store = () => {
     let [fontsLoaded] = useFonts({
         'Thunder-Love': require('../assets/fonts/ALoveofThunder.ttf'),
         'Mochy': require('../assets/fonts/MochiyPopOne-Regular.ttf'),
-
     });
 
     if (!fontsLoaded) {
@@ -67,7 +64,7 @@ const Store = () => {
     return (
         <View style={{ height: height, }}>
             <ImageBackground style={storeStyles.storeBanner} source={storeBanner} resizeMethod='auto' resizeMode="cover" >
-                <Text variant='h2' style={{ fontSize: 20, backgroundColor: 'rgba(255, 164, 58, 0.75)', padding: 10, borderRadius: 10, fontFamily: 'Mochy', color: '#F9F2ED' }} >¿Qué menú vas a pedir?</Text>
+                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, fontFamily: 'Mochy', color: '#581C0C' }} >¿Qué menú vas a pedir?</Text>
             </ImageBackground>
 
             <ScrollView style={storeStyles.menuContainer} contentContainerStyle={{
