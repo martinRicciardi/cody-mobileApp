@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Store from '../screens/Store';
 import Menu from '../screens/Menu';
+import Paypal from './../components/Paypal';
 
 export default function Stack() {
     const StoreStackNavigator = createNativeStackNavigator();

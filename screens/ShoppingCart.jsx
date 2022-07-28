@@ -158,7 +158,7 @@ export default function ShoppingCart() {
                         <Text >Limpiar Carrito</Text>
                     </TouchableOpacity>
                     <TouchableOpacity underlayColor="#000" activeOpacity={0.6}
-                        style={[cartStyles.btn]}>
+                        style={[cartStyles.btn]} onPress={() => navigation.navigate("Checkout", {item: total})}>
                         <Text >Confirmar Pedido</Text>
                     </TouchableOpacity>
 
