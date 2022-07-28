@@ -6,10 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import userActions from '../redux/actions/userActions';
 import Banner from '../assets/banner-store.jpg'
 import cody from '../assets/cody2.png'
-// import bgCity from './../assets/city-body.jpg'
-// import AppLoading from 'expo-app-loading';
-// import { Comfortaa_500Medium } from '@expo-google-fonts/comfortaa';
-// import { useFonts, Charm_400Regular } from '@expo-google-fonts/charm';
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
 
 const SignIn = () => {
     const [email, setEmail] = useState('');
@@ -18,10 +16,10 @@ const SignIn = () => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     let message = useSelector(store => store.userReducer.message);
-    // let [fontsLoaded] = useFonts({
-    //     Charm_400Regular,
-    //     Comfortaa_500Medium
-    // })
+    let [fontsLoaded] = useFonts({
+        'Thunder-Love': require('../assets/fonts/ALoveofThunder.ttf'),
+        'Mochy': require('../assets/fonts/MochiyPopOne-Regular.ttf'),
+    });
     const styles = StyleSheet.create({
         // fonts: {
         //     title: { fontSize: 50 },
@@ -88,14 +86,13 @@ const SignIn = () => {
 
     if (message) {
         setTimeout(function () {
-            navigation.navigate("Tienda");
+            navigation.navigate("Store");
         }, 1000);
     }
-    // if (!fontsLoaded) {
-    //     return <AppLoading />;
-    // }
+    if (!fontsLoaded) {
+        return <AppLoading />;
+    }
 
-    console.log(message)
     return (
         <View style={{ height: height, justifyContent: 'flex-start' }} >
             <ImageBackground style={styles.authBanner} source={Banner} resizeMethod='auto' resizeMode="cover" >
@@ -104,7 +101,7 @@ const SignIn = () => {
                     width: '30%',
                     height: '100%'
                 }} ></View>
-                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, textAlign: 'center', width: '50%' }} >Perfil</Text>
+                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, textAlign: 'center', width: '50%',fontFamily: 'Thunder-Love', color: '#581C0C' }} >Perfil</Text>
                 <Image source={cody} style={{
                     // flexGrow:1,
                     width: '30%',
@@ -114,11 +111,12 @@ const SignIn = () => {
             <View style={styles.authContainer} >
                 <Form
                     onButtonPress={() => handleSubmit()}
-                    buttonText='Ingresar'
+                    buttonText='INGRESAR'
                     buttonStyle={{ backgroundColor: '#f9b384d7' }}
+                    buttonTextStyle={{ fontFamily: 'Thunder-Love', color: '#581C0C', fontWeight:'800'}}
                     style={styles.formContainer}
                 >
-                    <Text style={[styles.text.primary, { textAlign: 'center', fontSize: 30, marginBottom: 10 }]}>Inicia sesión</Text>
+                    <Text style={[styles.text.primary, { textAlign: 'center', fontSize: 25, marginBottom: 10, fontFamily: 'Thunder-Love', color: '#581C0C' }]}>Iniciar sesion</Text>
                     <FormItem
                         label="Email"
                         isRequired
@@ -141,9 +139,9 @@ const SignIn = () => {
                         secureTextEntry
                     />
                     <View>
-                        <Text style={{ textAlign: 'center', fontSize: 15, marginTop: 15 }}>¿Primera vez por aquí?</Text>
+                        <Text style={{ textAlign: 'center', fontSize: 15, marginTop: 15, marginBottom:10, fontFamily: 'Mochy', color: '#581C0C' }}>¿Primera vez por aquí?</Text>
                         <TouchableOpacity underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("SignUp")}>
-                            <Text style={[styles.text.primary, { textAlign: 'center', fontSize: 30, textDecorationLine: 'underline' }]}>Regístrate!</Text>
+                            <Text style={[styles.text.primary, { textAlign: 'center', fontSize: 25, textDecorationLine: 'underline', fontFamily: 'Thunder-Love', color: '#581C0C' }]}>Registrate!</Text>
                         </TouchableOpacity>
                     </View>
                 </Form>

@@ -6,34 +6,27 @@ import { useSelector, useDispatch } from 'react-redux';
 import userActions from '../redux/actions/userActions';
 import Banner from '../assets/banner-store.jpg'
 import cody from '../assets/cody2.png'
-// import AppLoading from 'expo-app-loading';
-// import { Comfortaa_500Medium } from '@expo-google-fonts/comfortaa';
-// import { useFonts, Charm_400Regular } from '@expo-google-fonts/charm';
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
 
 const SignUp = () => {
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('')
-    // const [country, setCountry] = useState('');
     const [image, setImage] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
     const { height, width } = useWindowDimensions();
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    // let [fontsLoaded] = useFonts({
-    //     Charm_400Regular,
-    //     Comfortaa_500Medium
-    // })
+    let [fontsLoaded] = useFonts({
+        'Thunder-Love': require('../assets/fonts/ALoveofThunder.ttf'),
+        'Mochy': require('../assets/fonts/MochiyPopOne-Regular.ttf'),
+    });
     let errors = useSelector(store => store.userReducer.errors);
     let message = useSelector(store => store.userReducer.message);
 
     const styles = StyleSheet.create({
-        // fonts: {
-        //     title: { fontSize: 50 },
-        //     slogan: { fontSize: 30, fontFamily: 'Charm_400Regular' },
-        //     normal: { fontSize: 15, fontFamily: 'Comfortaa_500Medium' }
-        // },
         text: {
             primary: { color: "#f9b384d7" },
             light: { color: "#f7f3f3" },
@@ -99,14 +92,10 @@ const SignUp = () => {
 
     };
 
-    // if (message !== '') {
-    //     setTimeout(function () {
-    //         navigation.navigate("Profile");
-    //     }, 100000);
-    // }
-    // if (!fontsLoaded) {
-    //     return <AppLoading />;
-    // }
+    if (!fontsLoaded) {
+        return <AppLoading />;
+    }
+
     return (
         <ScrollView>
 
@@ -116,7 +105,7 @@ const SignUp = () => {
                     width: '30%',
                     height: '100%'
                 }} ></View>
-                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, textAlign: 'center', width: '50%' }} >Perfil</Text>
+                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, textAlign: 'center', width: '50%', fontFamily: 'Thunder-Love', color: '#581C0C' }} >Perfil</Text>
                 <Image source={cody} style={{
                     // flexGrow:1,
                     width: '30%',
@@ -129,9 +118,10 @@ const SignUp = () => {
                     onButtonPress={() => handleSubmit()}
                     buttonText='Registrarse'
                     buttonStyle={{ backgroundColor: '#f9b384d7' }}
+                    buttonTextStyle={{ fontFamily: 'Thunder-Love', color: '#581C0C', fontWeight: '800' }}
                     style={styles.formContainer}
                 >
-                    <Text style={[styles.text.primary, { textAlign: 'center', marginBottom: 10, fontSize: 30 }]}>Registro</Text>
+                    <Text style={[styles.text.primary, { textAlign: 'center', fontSize: 25, marginBottom: 10, fontFamily: 'Thunder-Love', color: '#581C0C' }]}>Iniciar sesion</Text>
 
                     <FormItem
                         label="Nombre"
@@ -196,9 +186,9 @@ const SignUp = () => {
                         secureTextEntry
                     />
                     <View>
-                        <Text style={{ textAlign: 'center', fontSize: 15 }}>Ya estas registrado?</Text>
+                        <Text style={{ textAlign: 'center', fontSize: 15, marginTop: 15, marginBottom: 10, fontFamily: 'Mochy', color: '#581C0C' }}>Ya estas registrado?</Text>
                         <TouchableOpacity underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("Profile")}>
-                            <Text style={[styles.text.primary, { textAlign: 'center', fontSize: 30, textDecorationLine: 'underline' }]}>Inicia sesión!</Text>
+                            <Text style={[styles.text.primary, { textAlign: 'center', fontSize: 25, textDecorationLine: 'underline', fontFamily: 'Thunder-Love', color: '#581C0C' }]}>INGRESA</Text>
                         </TouchableOpacity>
                     </View>
 
