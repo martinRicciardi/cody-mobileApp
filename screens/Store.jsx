@@ -64,7 +64,7 @@ const Store = () => {
     return (
         <View style={{ height: height, }}>
             <ImageBackground style={storeStyles.storeBanner} source={storeBanner} resizeMethod='auto' resizeMode="cover" >
-                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, fontFamily: 'Mochy', color: '#581C0C' }} >¿Qué menú vas a pedir?</Text>
+                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, fontFamily: 'Thunder-Love', color: '#581C0C' }} >¿Qué menu vas a pedir?</Text>
             </ImageBackground>
 
             <ScrollView style={storeStyles.menuContainer} contentContainerStyle={{

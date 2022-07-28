@@ -5,6 +5,8 @@ import { DataTable } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from 'react-redux'
 import productActions from "../redux/actions/productActions";
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
 
 import storeBanner from '../assets/banner-store.jpg'
 import cody from '../assets/cody6.png'
@@ -14,6 +16,10 @@ export default function ShoppingCart() {
     const dispatch = useDispatch();
     const { height, width } = useWindowDimensions();
     const navigation = useNavigation();
+    let [fontsLoaded] = useFonts({
+        'Thunder-Love': require('../assets/fonts/ALoveofThunder.ttf'),
+        'Mochy': require('../assets/fonts/MochiyPopOne-Regular.ttf'),
+    });
     const cartStyles = StyleSheet.create({
         storeBanner: {
             height: height / 5,
@@ -73,11 +79,14 @@ export default function ShoppingCart() {
             padding: 10
         }
     });
-    
+
     const cart = useSelector(store => store.productReducer.cart);
 
     let total = 0;
 
+    if (!fontsLoaded) {
+        return <AppLoading />;
+    }
     return (
 
         <View style={{ height: height, justifyContent: 'space-between', backgroundColor: '#f9b384d7' }} >
@@ -87,7 +96,7 @@ export default function ShoppingCart() {
                     width: '30%',
                     height: '100%'
                 }} ></View>
-                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, width: '50%', textAlign: 'center' }} >Tu Pedido</Text>
+                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, fontFamily: 'Thunder-Love', color: '#581C0C' }} >Tu Pedido</Text>
                 <Image source={cody} style={{
                     width: '30%',
                     height: '100%'
@@ -105,13 +114,13 @@ export default function ShoppingCart() {
                                         return (
                                             <View key={i} style={cartStyles.tableRow}>
                                                 <View style={cartStyles.rowName} >
-                                                    <Text style={{ textAlign: 'center', fontSize: 15 }}>{item.name}</Text>
+                                                    <Text style={{ textAlign: 'center', fontSize: 15, fontFamily: 'Thunder-Love', color: '#581C0C' }}>{item.name}</Text>
                                                 </View>
                                                 <View style={cartStyles.rowItem}>
-                                                    <Text>x {item.quantity}</Text>
+                                                    <Text style={{ fontFamily: 'Thunder-Love', color: '#581C0C'}}>x {item.quantity}</Text>
                                                 </View>
                                                 <View style={[cartStyles.rowItem, { flexGrow: 1 }]}>
-                                                    <Text>${item.price * item.quantity}</Text>
+                                                    <Text style={{ fontFamily: 'Thunder-Love', color: '#581C0C'}}>${item.price * item.quantity}</Text>
                                                 </View>
                                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', flexGrow: 1, maxWidth: 55 }}>
                                                     <TouchableOpacity underlayColor="#000" activeOpacity={0.6} style={{ alignItems: 'center', justifyContent: 'center', textAlign: 'center', width: '50%' }} onPress={async () => {
@@ -134,8 +143,8 @@ export default function ShoppingCart() {
                                     }
                                 </ScrollView>
                                 <View style={{ flexDirection: 'row', justifyContent: 'flex-end', width: '100%', paddingHorinzontal: 30, borderTopWidth: 1, paddingTop: 10 }}>
-                                    <Text style={{ fontSize: 20, fontWeight: '500' }}>Total: </Text>
-                                    <Text style={{ fontSize: 20, fontWeight: '400' }}>${total}</Text>
+                                    <Text style={{ fontSize: 20, fontWeight: '500',fontFamily: 'Thunder-Love', color: '#581C0C' }}>Total: </Text>
+                                    <Text style={{ fontSize: 20, fontWeight: '100',fontFamily: 'Thunder-Love', color: '#554d39' }}>${total}</Text>
                                 </View>
 
                             </View>
@@ -156,11 +165,11 @@ export default function ShoppingCart() {
                         onPress={async () => {
                             await dispatch(productActions.clearCart());
                         }}>
-                        <Text >BORRAR TODO</Text>
+                        <Text style={{fontFamily: 'Thunder-Love', color: '#581C0C'}} >BORRAR TODO</Text>
                     </TouchableOpacity>
                     <TouchableOpacity underlayColor="#000" activeOpacity={0.6}
                         style={[cartStyles.btn]} onPress={() => navigation.navigate("Checkout", { item: total })}>
-                        <Text >CONFIRMAR PEDIDO</Text>
+                        <Text style={{fontFamily: 'Thunder-Love', color: '#581C0C'}} >CONFIRMAR PEDIDO</Text>
                     </TouchableOpacity>
 
                 </View>

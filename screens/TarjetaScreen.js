@@ -4,35 +4,25 @@ import { KeyboardAvoidingView, useWindowDimensions, StyleSheet, Text, TouchableO
 import { CreditCardInput } from 'react-native-credit-card-input'
 import { saveTarjetas, getTarjetas } from '../components/TarjetaAsyncStorage'
 import { useNavigation } from "@react-navigation/native";
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
+
 export default function TarjetaScreen() {
-const navigation = useNavigation();
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     data: {},
-  //     bolTarjeta: false,
-  //     tarjetas: [],
-  //   }
-  // }
+  const navigation = useNavigation();
   const { height, width } = useWindowDimensions();
   const [data, setData] = useState({});
   const [bolTarjeta, setBolTarjeta] = useState(false);
   const [tarjetas, setTarjetas] = useState([]);
-
+  let [fontsLoaded] = useFonts({
+    'Thunder-Love': require('../assets/fonts/ALoveofThunder.ttf'),
+    'Mochy': require('../assets/fonts/MochiyPopOne-Regular.ttf'),
+  });
   const onChange = (formData) => {
-
-    // console.log(JSON.stringify(formData, null, " "));
     setData(formData.values);
     setBolTarjeta(formData.valid);
-
-    // this.setState({
-    //   data: formData.values,
-    //   bolTarjeta: formData.valid
-    // })
   }
 
   const asociarTarjeta = () => {
-
     if (bolTarjeta) {
       const result = [
         ...tarjetas,
@@ -40,11 +30,11 @@ const navigation = useNavigation();
       ]
       setTarjetas(result);
       saveTarjetas(result)
-
     } else {
       console.log("Todos los campos son requeridos")
     }
   }
+  
   useEffect(() => {
     getTarjetas().then((res) => {
       if (res !== null) {
@@ -54,13 +44,17 @@ const navigation = useNavigation();
     });
   }, []);
 
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1 }}
     >
-      <View style={{  alignItems: 'center', justifyContent:'space-evenly', height: height, width: width, padding:20, backgroundColor:'#fae1d0' }}>
-        
+      <View style={{ alignItems: 'center', justifyContent: 'space-evenly', height: height, width: width, padding: 20, backgroundColor: '#fae1d0' }}>
+
         <View style={{ width: '100%', height: '50%' }}>
           <CreditCardInput
             autoFocus
@@ -82,13 +76,14 @@ const navigation = useNavigation();
           width: 280,
           backgroundColor: '#f8914c',
           borderRadius: 15,
-          marginBottom:40
+          marginBottom: 40
         }}>
           <TouchableOpacity onPress={() => navigation.navigate("Finally")}>
             <Text style={{
               textAlign: 'center',
               fontSize: 17,
-              color: 'white',
+              fontFamily: 'Thunder-Love',
+              color: '#581C0C',
               paddingVertical: 15,
             }}>Finalizar Compra</Text>
           </TouchableOpacity>

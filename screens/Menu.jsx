@@ -6,6 +6,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import menubg from '../assets/banner-hero3.jpg'
 import productbg from '../assets/card-cont.jpg'
 import productActions from "../redux/actions/productActions";
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
 
 const Menu = ({ route }) => {
     const { height, width } = useWindowDimensions();
@@ -55,6 +57,10 @@ const Menu = ({ route }) => {
     });
     const [search, setSearch] = useState('');
     const [reload, setReload] = useState(false);
+    let [fontsLoaded] = useFonts({
+        'Thunder-Love': require('../assets/fonts/ALoveofThunder.ttf'),
+        'Mochy': require('../assets/fonts/MochiyPopOne-Regular.ttf'),
+    });
 
     const dispatch = useDispatch()
 
@@ -68,7 +74,9 @@ const Menu = ({ route }) => {
     }, [search]);
 
     const products = useSelector(store => store.productReducer.filter)
-
+    if (!fontsLoaded) {
+        return <AppLoading />;
+    }
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "padding"}
@@ -99,7 +107,7 @@ const Menu = ({ route }) => {
                                 }} resizeMethod='auto' resizeMode='contain' />
                                 <View style={{ height: '35%', width: '100%', justifyContent: 'space-evenly', alignItems: 'center' }}>
                                     <View style={{ width: '60%', justifyContent: 'space-evenly', alignItems: 'center' }}>
-                                        <Text variant='h3' style={{ fontSize: 18, backgroundColor: '#fff', color: '#f9b384d3', paddingHorizontal: 5, paddingVertical: 7, borderRadius: 10, fontWeight: '800', textAlign: 'center' }} >{item.name}</Text>
+                                        <Text variant='h3' style={{ fontSize: 18, backgroundColor: '#f9b384d3', paddingHorizontal: 5, paddingVertical: 7, borderRadius: 10, fontWeight: '800', textAlign: 'center',fontFamily: 'Thunder-Love', color: '#581C0C', width:160 }} >{item.name}</Text>
                                     </View>
                                     {item.stock > 0 ?
                                         <Text variant='h3' style={{ fontSize: 15, backgroundColor: '#f9b384d3', paddingHorizontal: 15, paddingVertical: 5, borderRadius: 10, borderColor: '#fff', borderWidth: 1, fontWeight: '600' }} >${item.price}</Text>

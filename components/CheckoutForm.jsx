@@ -6,9 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import userActions from '../redux/actions/userActions';
 import Banner from '../assets/banner-store.jpg'
 import cody from '../assets/cody2.png'
-// import AppLoading from 'expo-app-loading';
-// import { Comfortaa_500Medium } from '@expo-google-fonts/comfortaa';
-// import { useFonts, Charm_400Regular } from '@expo-google-fonts/charm';
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
 
 const SignUp = () => {
     const [address, setAddress] = useState('');
@@ -17,10 +16,10 @@ const SignUp = () => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
-    // let [fontsLoaded] = useFonts({
-    //     Charm_400Regular,
-    //     Comfortaa_500Medium
-    // })
+    let [fontsLoaded] = useFonts({
+        'Thunder-Love': require('../assets/fonts/ALoveofThunder.ttf'),
+        'Mochy': require('../assets/fonts/MochiyPopOne-Regular.ttf'),
+    });
 
     const styles = StyleSheet.create({
         // fonts: {
@@ -70,13 +69,15 @@ const SignUp = () => {
         },
         formContainer: {
             borderWidth: 1,
-            padding: 15,
+            padding: 25,
             backgroundColor: '#fae1d0',
             borderRadius: 12,
             justifyContent: 'space-evenly'
         }
     });
-
+    if (!fontsLoaded) {
+        return <AppLoading />;
+    }
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -89,7 +90,7 @@ const SignUp = () => {
                         width: '30%',
                         height: '100%'
                     }} ></View>
-                    <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, textAlign: 'center', width: '50%' }} >Datos de Envío</Text>
+                    <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, fontFamily: 'Thunder-Love', color: '#581C0C' }} >Datos de Envio</Text>
                     <Image source={cody} style={{
                         // flexGrow:1,
                         width: '30%',
@@ -103,8 +104,9 @@ const SignUp = () => {
                         buttonText='PAGAR'
                         buttonStyle={{ backgroundColor: '#f8914c' }}
                         style={styles.formContainer}
+                        buttonTextStyle={{fontFamily: 'Thunder-Love', color: '#581C0C'}}
                     >
-                        <Text style={[styles.text.primary, { textAlign: 'center', marginBottom: 10, fontSize: 30 }]}>¿Dónde te enviamos el pedido?</Text>
+                        <Text style={[styles.text.primary, { textAlign: 'center', marginBottom: 10, fontSize: 30, fontSize: 17, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10, fontFamily: 'Thunder-Love', color: '#581C0C'}]}>¿Donde te enviamos el pedido?</Text>
 
                         <FormItem
                             label="Dirección de Entrega"
