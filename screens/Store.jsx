@@ -4,11 +4,13 @@ import { StyleSheet, View, ImageBackground, useWindowDimensions, ScrollView, Ima
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import storeBanner from '../assets/banner-store.jpg'
-import codyBreakFast from '../assets/cody-breakfast.jpg'
-import codyLunch from '../assets/cody-lunch.jpg'
-import codySnack from '../assets/cody-snack.jpg'
-import codyProduct from '../assets/cody-product.jpg'
+import codyBreakFast from '../assets/cody-breakfast.png'
+import codyLunch from '../assets/cody-lunch.png'
+import codySnack from '../assets/cody-snack.png'
+import codyProduct from '../assets/cody-product.png'
 import productActions from "../redux/actions/productActions";
+import AppLoading from 'expo-app-loading';
+import { useFonts } from 'expo-font';
 
 const Store = () => {
     const navigation = useNavigation();
@@ -27,17 +29,20 @@ const Store = () => {
             marginBottom: 40
         },
         menu: {
-            height: 250,
+            height: 300,
             width: 250,
+
             marginTop: 20
+
         },
         menuText: {
             justifyContent: 'flex-start',
-            alignItems: 'center',
-            height: '100%',
-            width: '100%',
-            padding: 20,
-            backgroundColor: 'rgba(0,0,0,0.15)'
+            height: 55,
+            width: 250,
+            borderRadius: 20,
+            backgroundColor: 'rgba(0,0,0,0.15)',
+
+
         }
     });
 
@@ -47,12 +52,22 @@ const Store = () => {
         dispatch(productActions.getProducts())
     }, [])
     const products = useSelector(store => store.productReducer.products)
-// console.log(products)
+    // console.log(products)
     const categories = [{ name: 'Desayuno', image: codyBreakFast }, { name: 'Almuerzo', image: codyLunch }, { name: 'Postre', image: codySnack }, { name: 'Producto', image: codyProduct }]
+
+    let [fontsLoaded] = useFonts({
+        'Thunder-Love': require('../assets/fonts/ALoveofThunder.ttf'),
+        'Mochy': require('../assets/fonts/MochiyPopOne-Regular.ttf'),
+
+    });
+
+    if (!fontsLoaded) {
+        return <AppLoading />;
+    }
     return (
-        <View style={{ height: height }}>
+        <View style={{ height: height, }}>
             <ImageBackground style={storeStyles.storeBanner} source={storeBanner} resizeMethod='auto' resizeMode="cover" >
-                <Text variant='h2' style={{ fontSize: 20, backgroundColor: '#f9b384d7', padding: 10, borderRadius: 10 }} >¿Qué menú vas a pedir?</Text>
+                <Text variant='h2' style={{ fontSize: 20, backgroundColor: 'rgba(255, 164, 58, 0.75)', padding: 10, borderRadius: 10, fontFamily: 'Mochy', color: '#F9F2ED' }} >¿Qué menú vas a pedir?</Text>
             </ImageBackground>
 
             <ScrollView style={storeStyles.menuContainer} contentContainerStyle={{
@@ -64,7 +79,7 @@ const Store = () => {
                         <TouchableOpacity key={i} underlayColor="#000" activeOpacity={0.6} onPress={() => navigation.navigate("Menu", { category: item.name })}>
                             <ImageBackground source={item.image} style={storeStyles.menu}>
                                 <View style={storeStyles.menuText}>
-                                    <Text style={{ textAlign: 'center', fontSize: 40 }} >{item.name}</Text>
+                                    <Text style={{ textAlign: 'center', fontSize: 40, fontFamily: 'Thunder-Love', color: '#581C0C' }} >{item.name}</Text>
                                 </View>
                             </ImageBackground>
                         </TouchableOpacity>
