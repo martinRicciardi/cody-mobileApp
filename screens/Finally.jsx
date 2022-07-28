@@ -5,7 +5,7 @@ import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import heroBg from '../assets/banner-hero4.jpg'
 const Finally = () => {
-
+    const navigation = useNavigation();
     const { height, width } = useWindowDimensions();
 
     let [fontsLoaded] = useFonts({
@@ -44,7 +44,7 @@ const Finally = () => {
             height: height,
             justifyContent: 'space-around',
             alignItems: 'center',
-            padding:30
+            padding: 30
         },
         textContainer: {
             height: "50%",
@@ -75,6 +75,12 @@ const Finally = () => {
     if (!fontsLoaded) {
         return <AppLoading />;
     }
+
+
+    setTimeout(function () {
+        navigation.navigate("Home");
+    }, 3000);
+
     return (
         <ImageBackground style={heroStyles.heroContainer} source={heroBg} resizeMethod='scale' resizeMode="cover" >
             <View style={heroStyles.menuText}>
